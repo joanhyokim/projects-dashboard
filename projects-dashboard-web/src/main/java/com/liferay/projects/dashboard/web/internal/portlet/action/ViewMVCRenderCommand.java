@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.liferay.osb.ldn.documentation.project.admin.web.internal.portlet.action;
+package com.liferay.projects.dashboard.web.internal.portlet.action;
 
 import com.liferay.projects.dashboard.web.internal.constants.ProjectsDashboardPortletKeys;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCRenderCommand;
