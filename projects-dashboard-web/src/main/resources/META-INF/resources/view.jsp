@@ -50,7 +50,7 @@ long businessUnitId = ParamUtil.getLong(request, "businessUnitId", getDefaultBus
 
 					<li<%= (businessUnit.getBusinessUnitId() == businessUnitId) ? " class=\"active\"" : StringPool.BLANK%>>
 						<liferay-portlet:renderURL var="viewURL">
-							<portlet:param name="mvcRenderCommandName" value="/view" />
+							<portlet:param name="mvcRenderCommandName" value="/edit_business_unit" />
 							<portlet:param name="businessUnitId" value="<%= String.valueOf(businessUnit.getBusinessUnitId()) %>" />
 						</liferay-portlet:renderURL>
 
