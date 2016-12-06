@@ -16,6 +16,10 @@
 
 <%@ include file="/init.jsp" %>
 
+<%
+long businessUnitId = ParamUtil.getLong(request, "businessUnitId", getDefaultBusinessUnitId());
+%>
+
 <div class="view">
 	<div class="container">
 		<div class="col-md-3">
@@ -35,13 +39,27 @@
 			</h3>
 
 			<ul class="nav nav-pills nav-stacked">
-				<li class="active"><a href="javascript:;">Engineering</a></li>
-				<li><a href="javascript:;">Information Services</a></li>
-				<li><a href="javascript:;">Marketing</a></li>
-				<li><a href="javascript:;">Marketplace</a></li>
-				<li><a href="javascript:;">Sales</a></li>
-				<li><a href="javascript:;">Support</a></li>
-				<li><a href="javascript:;">Training</a></li>
+
+				<%
+				List<BusinessUnit> businessUnits = BusinessUnitLocalServiceUtil.getBusinessUnits(-1, -1);
+
+				for (BusinessUnit businessUnit : businessUnits) {
+
+				%>
+
+					<li<%= (businessUnit.getBusinessUnitId() == businessUnitId) ? " class=\"active\"" : StringPool.BLANK%>>
+						<liferay-portlet:renderURL var="viewURL">
+							<portlet:param name="mvcRenderCommandName" value="/view" />
+							<portlet:param name="businessUnitId" value="<%= businessUnit.getBusinessUnitIdId() %>" />
+						</liferay-portlet:renderURL>
+
+						<a href="<%= viewURL %>"><%= businessUnit.getName() %></a>
+					</li>
+
+				<%
+				}
+				%>
+
 			</ul>
 		</div>
 		<div class="col-md-9">
@@ -62,3 +80,15 @@
 		</div>
 	</div>
 </div>
+
+<%!
+protected getDefaultBusinessUnitId() {
+	List<BusinessUnit> businessUnits = BusinessUnitLocalServiceUtil.getBusinessUnits(0, 1);
+
+	if (!businessUnits.isEmpty()) {
+		return businessUnits.get(0).getBusinessUnitId();
+	}
+
+	return 0;
+}
+%>
