@@ -81,6 +81,7 @@ public class ProjectModelImpl extends BaseModelImpl<Project>
 			{ "userName", Types.VARCHAR },
 			{ "createDate", Types.TIMESTAMP },
 			{ "modifiedDate", Types.TIMESTAMP },
+			{ "businessUnitId", Types.BIGINT },
 			{ "name", Types.VARCHAR },
 			{ "description", Types.VARCHAR },
 			{ "priority", Types.INTEGER },
@@ -101,6 +102,7 @@ public class ProjectModelImpl extends BaseModelImpl<Project>
 		TABLE_COLUMNS_MAP.put("userName", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("createDate", Types.TIMESTAMP);
 		TABLE_COLUMNS_MAP.put("modifiedDate", Types.TIMESTAMP);
+		TABLE_COLUMNS_MAP.put("businessUnitId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("name", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("description", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("priority", Types.INTEGER);
@@ -112,7 +114,7 @@ public class ProjectModelImpl extends BaseModelImpl<Project>
 		TABLE_COLUMNS_MAP.put("status", Types.INTEGER);
 	}
 
-	public static final String TABLE_SQL_CREATE = "create table PD_Project (uuid_ VARCHAR(75) null,projectId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,name VARCHAR(75) null,description VARCHAR(75) null,priority INTEGER,health INTEGER,expectedStartDate DATE null,expectedEndDate DATE null,actualStartDate DATE null,actualEndDate DATE null,status INTEGER)";
+	public static final String TABLE_SQL_CREATE = "create table PD_Project (uuid_ VARCHAR(75) null,projectId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,businessUnitId LONG,name VARCHAR(75) null,description VARCHAR(75) null,priority INTEGER,health INTEGER,expectedStartDate DATE null,expectedEndDate DATE null,actualStartDate DATE null,actualEndDate DATE null,status INTEGER)";
 	public static final String TABLE_SQL_DROP = "drop table PD_Project";
 	public static final String ORDER_BY_JPQL = " ORDER BY project.expectedEndDate ASC";
 	public static final String ORDER_BY_SQL = " ORDER BY PD_Project.expectedEndDate ASC";
@@ -153,6 +155,7 @@ public class ProjectModelImpl extends BaseModelImpl<Project>
 		model.setUserName(soapModel.getUserName());
 		model.setCreateDate(soapModel.getCreateDate());
 		model.setModifiedDate(soapModel.getModifiedDate());
+		model.setBusinessUnitId(soapModel.getBusinessUnitId());
 		model.setName(soapModel.getName());
 		model.setDescription(soapModel.getDescription());
 		model.setPriority(soapModel.getPriority());
@@ -233,6 +236,7 @@ public class ProjectModelImpl extends BaseModelImpl<Project>
 		attributes.put("userName", getUserName());
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
+		attributes.put("businessUnitId", getBusinessUnitId());
 		attributes.put("name", getName());
 		attributes.put("description", getDescription());
 		attributes.put("priority", getPriority());
@@ -291,6 +295,12 @@ public class ProjectModelImpl extends BaseModelImpl<Project>
 
 		if (modifiedDate != null) {
 			setModifiedDate(modifiedDate);
+		}
+
+		Long businessUnitId = (Long)attributes.get("businessUnitId");
+
+		if (businessUnitId != null) {
+			setBusinessUnitId(businessUnitId);
 		}
 
 		String name = (String)attributes.get("name");
@@ -479,6 +489,17 @@ public class ProjectModelImpl extends BaseModelImpl<Project>
 
 	@JSON
 	@Override
+	public long getBusinessUnitId() {
+		return _businessUnitId;
+	}
+
+	@Override
+	public void setBusinessUnitId(long businessUnitId) {
+		_businessUnitId = businessUnitId;
+	}
+
+	@JSON
+	@Override
 	public String getName() {
 		if (_name == null) {
 			return StringPool.BLANK;
@@ -644,6 +665,7 @@ public class ProjectModelImpl extends BaseModelImpl<Project>
 		projectImpl.setUserName(getUserName());
 		projectImpl.setCreateDate(getCreateDate());
 		projectImpl.setModifiedDate(getModifiedDate());
+		projectImpl.setBusinessUnitId(getBusinessUnitId());
 		projectImpl.setName(getName());
 		projectImpl.setDescription(getDescription());
 		projectImpl.setPriority(getPriority());
@@ -773,6 +795,8 @@ public class ProjectModelImpl extends BaseModelImpl<Project>
 			projectCacheModel.modifiedDate = Long.MIN_VALUE;
 		}
 
+		projectCacheModel.businessUnitId = getBusinessUnitId();
+
 		projectCacheModel.name = getName();
 
 		String name = projectCacheModel.name;
@@ -836,7 +860,7 @@ public class ProjectModelImpl extends BaseModelImpl<Project>
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(33);
+		StringBundler sb = new StringBundler(35);
 
 		sb.append("{uuid=");
 		sb.append(getUuid());
@@ -852,6 +876,8 @@ public class ProjectModelImpl extends BaseModelImpl<Project>
 		sb.append(getCreateDate());
 		sb.append(", modifiedDate=");
 		sb.append(getModifiedDate());
+		sb.append(", businessUnitId=");
+		sb.append(getBusinessUnitId());
 		sb.append(", name=");
 		sb.append(getName());
 		sb.append(", description=");
@@ -877,7 +903,7 @@ public class ProjectModelImpl extends BaseModelImpl<Project>
 
 	@Override
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(52);
+		StringBundler sb = new StringBundler(55);
 
 		sb.append("<model><model-name>");
 		sb.append("com.liferay.projects.dashboard.model.Project");
@@ -910,6 +936,10 @@ public class ProjectModelImpl extends BaseModelImpl<Project>
 		sb.append(
 			"<column><column-name>modifiedDate</column-name><column-value><![CDATA[");
 		sb.append(getModifiedDate());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>businessUnitId</column-name><column-value><![CDATA[");
+		sb.append(getBusinessUnitId());
 		sb.append("]]></column-value></column>");
 		sb.append(
 			"<column><column-name>name</column-name><column-value><![CDATA[");
@@ -968,6 +998,7 @@ public class ProjectModelImpl extends BaseModelImpl<Project>
 	private Date _createDate;
 	private Date _modifiedDate;
 	private boolean _setModifiedDate;
+	private long _businessUnitId;
 	private String _name;
 	private String _description;
 	private int _priority;

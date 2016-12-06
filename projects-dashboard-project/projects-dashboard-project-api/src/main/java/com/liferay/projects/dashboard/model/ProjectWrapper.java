@@ -66,6 +66,7 @@ public class ProjectWrapper implements Project, ModelWrapper<Project> {
 		attributes.put("userName", getUserName());
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
+		attributes.put("businessUnitId", getBusinessUnitId());
 		attributes.put("name", getName());
 		attributes.put("description", getDescription());
 		attributes.put("priority", getPriority());
@@ -121,6 +122,12 @@ public class ProjectWrapper implements Project, ModelWrapper<Project> {
 
 		if (modifiedDate != null) {
 			setModifiedDate(modifiedDate);
+		}
+
+		Long businessUnitId = (Long)attributes.get("businessUnitId");
+
+		if (businessUnitId != null) {
+			setBusinessUnitId(businessUnitId);
 		}
 
 		String name = (String)attributes.get("name");
@@ -384,6 +391,16 @@ public class ProjectWrapper implements Project, ModelWrapper<Project> {
 	}
 
 	/**
+	* Returns the business unit ID of this project.
+	*
+	* @return the business unit ID of this project
+	*/
+	@Override
+	public long getBusinessUnitId() {
+		return _project.getBusinessUnitId();
+	}
+
+	/**
 	* Returns the company ID of this project.
 	*
 	* @return the company ID of this project
@@ -446,6 +463,16 @@ public class ProjectWrapper implements Project, ModelWrapper<Project> {
 	@Override
 	public void setActualStartDate(Date actualStartDate) {
 		_project.setActualStartDate(actualStartDate);
+	}
+
+	/**
+	* Sets the business unit ID of this project.
+	*
+	* @param businessUnitId the business unit ID of this project
+	*/
+	@Override
+	public void setBusinessUnitId(long businessUnitId) {
+		_project.setBusinessUnitId(businessUnitId);
 	}
 
 	@Override

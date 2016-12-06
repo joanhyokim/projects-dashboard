@@ -97,10 +97,11 @@ public interface ProjectLocalService extends BaseLocalService,
 	@Indexable(type = IndexableType.REINDEX)
 	public Project addProject(Project project);
 
-	public Project addProject(long userId, java.lang.String name,
-		java.lang.String description, int priority, int health,
-		Date expectedStartDate, Date expectedEndDate, Date actualStartDate,
-		Date actualEndDate, int status) throws PortalException;
+	public Project addProject(long userId, long businessUnitId,
+		java.lang.String name, java.lang.String description, int priority,
+		int health, Date expectedStartDate, Date expectedEndDate,
+		Date actualStartDate, Date actualEndDate, int status)
+		throws PortalException;
 
 	/**
 	* Creates a new project with the primary key. Does not add the project to the database.

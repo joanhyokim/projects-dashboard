@@ -84,13 +84,13 @@ public class ProjectLocalServiceWrapper implements ProjectLocalService,
 
 	@Override
 	public com.liferay.projects.dashboard.model.Project addProject(
-		long userId, java.lang.String name, java.lang.String description,
-		int priority, int health, java.util.Date expectedStartDate,
-		java.util.Date expectedEndDate, java.util.Date actualStartDate,
-		java.util.Date actualEndDate, int status)
+		long userId, long businessUnitId, java.lang.String name,
+		java.lang.String description, int priority, int health,
+		java.util.Date expectedStartDate, java.util.Date expectedEndDate,
+		java.util.Date actualStartDate, java.util.Date actualEndDate, int status)
 		throws com.liferay.portal.kernel.exception.PortalException {
-		return _projectLocalService.addProject(userId, name, description,
-			priority, health, expectedStartDate, expectedEndDate,
+		return _projectLocalService.addProject(userId, businessUnitId, name,
+			description, priority, health, expectedStartDate, expectedEndDate,
 			actualStartDate, actualEndDate, status);
 	}
 

@@ -194,6 +194,20 @@ public interface ProjectModel extends BaseModel<Project>, ShardedModel,
 	public void setModifiedDate(Date modifiedDate);
 
 	/**
+	 * Returns the business unit ID of this project.
+	 *
+	 * @return the business unit ID of this project
+	 */
+	public long getBusinessUnitId();
+
+	/**
+	 * Sets the business unit ID of this project.
+	 *
+	 * @param businessUnitId the business unit ID of this project
+	 */
+	public void setBusinessUnitId(long businessUnitId);
+
+	/**
 	 * Returns the name of this project.
 	 *
 	 * @return the name of this project

@@ -20,6 +20,7 @@
 
 		<!-- Other fields -->
 
+		<column name="businessUnitId" type="long" />
 		<column name="name" type="String" />
 		<column name="description" type="String" />
 		<column name="priority" type="int" />

@@ -30,7 +30,8 @@ import java.util.List;
 @ProviderType
 public class ProjectLocalServiceImpl extends ProjectLocalServiceBaseImpl {
 
-	public Project addProject(long userId, String name, String description,
+	public Project addProject(
+			long userId, long businessUnitId, String name, String description,
 			int priority, int health, Date expectedStartDate,
 			Date expectedEndDate, Date actualStartDate, Date actualEndDate,
 			int status)
@@ -48,6 +49,7 @@ public class ProjectLocalServiceImpl extends ProjectLocalServiceBaseImpl {
 		project.setUserName(user.getFullName());
 		project.setCreateDate(now);
 		project.setModifiedDate(now);
+		project.setBusinessUnitId(businessUnitId);
 		project.setName(name);
 		project.setDescription(description);
 		project.setPriority(priority);

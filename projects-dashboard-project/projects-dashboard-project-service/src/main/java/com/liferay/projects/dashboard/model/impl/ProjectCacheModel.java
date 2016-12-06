@@ -65,7 +65,7 @@ public class ProjectCacheModel implements CacheModel<Project>, Externalizable {
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(33);
+		StringBundler sb = new StringBundler(35);
 
 		sb.append("{uuid=");
 		sb.append(uuid);
@@ -81,6 +81,8 @@ public class ProjectCacheModel implements CacheModel<Project>, Externalizable {
 		sb.append(createDate);
 		sb.append(", modifiedDate=");
 		sb.append(modifiedDate);
+		sb.append(", businessUnitId=");
+		sb.append(businessUnitId);
 		sb.append(", name=");
 		sb.append(name);
 		sb.append(", description=");
@@ -139,6 +141,8 @@ public class ProjectCacheModel implements CacheModel<Project>, Externalizable {
 		else {
 			projectImpl.setModifiedDate(new Date(modifiedDate));
 		}
+
+		projectImpl.setBusinessUnitId(businessUnitId);
 
 		if (name == null) {
 			projectImpl.setName(StringPool.BLANK);
@@ -204,6 +208,8 @@ public class ProjectCacheModel implements CacheModel<Project>, Externalizable {
 		userName = objectInput.readUTF();
 		createDate = objectInput.readLong();
 		modifiedDate = objectInput.readLong();
+
+		businessUnitId = objectInput.readLong();
 		name = objectInput.readUTF();
 		description = objectInput.readUTF();
 
@@ -244,6 +250,8 @@ public class ProjectCacheModel implements CacheModel<Project>, Externalizable {
 		objectOutput.writeLong(createDate);
 		objectOutput.writeLong(modifiedDate);
 
+		objectOutput.writeLong(businessUnitId);
+
 		if (name == null) {
 			objectOutput.writeUTF(StringPool.BLANK);
 		}
@@ -276,6 +284,7 @@ public class ProjectCacheModel implements CacheModel<Project>, Externalizable {
 	public String userName;
 	public long createDate;
 	public long modifiedDate;
+	public long businessUnitId;
 	public String name;
 	public String description;
 	public int priority;

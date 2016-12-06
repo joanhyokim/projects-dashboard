@@ -135,6 +135,8 @@ public class ProjectPersistenceTest {
 
 		newProject.setModifiedDate(RandomTestUtil.nextDate());
 
+		newProject.setBusinessUnitId(RandomTestUtil.nextLong());
+
 		newProject.setName(RandomTestUtil.randomString());
 
 		newProject.setDescription(RandomTestUtil.randomString());
@@ -171,6 +173,8 @@ public class ProjectPersistenceTest {
 		Assert.assertEquals(Time.getShortTimestamp(
 				existingProject.getModifiedDate()),
 			Time.getShortTimestamp(newProject.getModifiedDate()));
+		Assert.assertEquals(existingProject.getBusinessUnitId(),
+			newProject.getBusinessUnitId());
 		Assert.assertEquals(existingProject.getName(), newProject.getName());
 		Assert.assertEquals(existingProject.getDescription(),
 			newProject.getDescription());
@@ -242,9 +246,9 @@ public class ProjectPersistenceTest {
 	protected OrderByComparator<Project> getOrderByComparator() {
 		return OrderByComparatorFactoryUtil.create("PD_Project", "uuid", true,
 			"projectId", true, "companyId", true, "userId", true, "userName",
-			true, "createDate", true, "modifiedDate", true, "name", true,
-			"description", true, "priority", true, "health", true,
-			"expectedStartDate", true, "expectedEndDate", true,
+			true, "createDate", true, "modifiedDate", true, "businessUnitId",
+			true, "name", true, "description", true, "priority", true,
+			"health", true, "expectedStartDate", true, "expectedEndDate", true,
 			"actualStartDate", true, "actualEndDate", true, "status", true);
 	}
 
@@ -454,6 +458,8 @@ public class ProjectPersistenceTest {
 		project.setCreateDate(RandomTestUtil.nextDate());
 
 		project.setModifiedDate(RandomTestUtil.nextDate());
+
+		project.setBusinessUnitId(RandomTestUtil.nextLong());
 
 		project.setName(RandomTestUtil.randomString());
 

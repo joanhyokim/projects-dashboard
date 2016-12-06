@@ -6,6 +6,7 @@ create table PD_Project (
 	userName VARCHAR(75) null,
 	createDate DATE null,
 	modifiedDate DATE null,
+	businessUnitId LONG,
 	name VARCHAR(75) null,
 	description VARCHAR(75) null,
 	priority INTEGER,

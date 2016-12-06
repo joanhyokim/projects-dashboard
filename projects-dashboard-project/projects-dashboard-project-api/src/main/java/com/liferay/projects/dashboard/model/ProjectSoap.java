@@ -41,6 +41,7 @@ public class ProjectSoap implements Serializable {
 		soapModel.setUserName(model.getUserName());
 		soapModel.setCreateDate(model.getCreateDate());
 		soapModel.setModifiedDate(model.getModifiedDate());
+		soapModel.setBusinessUnitId(model.getBusinessUnitId());
 		soapModel.setName(model.getName());
 		soapModel.setDescription(model.getDescription());
 		soapModel.setPriority(model.getPriority());
@@ -158,6 +159,14 @@ public class ProjectSoap implements Serializable {
 		_modifiedDate = modifiedDate;
 	}
 
+	public long getBusinessUnitId() {
+		return _businessUnitId;
+	}
+
+	public void setBusinessUnitId(long businessUnitId) {
+		_businessUnitId = businessUnitId;
+	}
+
 	public String getName() {
 		return _name;
 	}
@@ -237,6 +246,7 @@ public class ProjectSoap implements Serializable {
 	private String _userName;
 	private Date _createDate;
 	private Date _modifiedDate;
+	private long _businessUnitId;
 	private String _name;
 	private String _description;
 	private int _priority;
