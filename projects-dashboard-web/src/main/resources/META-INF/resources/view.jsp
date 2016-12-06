@@ -52,6 +52,7 @@ long businessUnitId = ParamUtil.getLong(request, "businessUnitId", getDefaultBus
 						<liferay-portlet:renderURL var="viewURL">
 							<portlet:param name="mvcRenderCommandName" value="/edit_business_unit" />
 							<portlet:param name="businessUnitId" value="<%= String.valueOf(businessUnit.getBusinessUnitId()) %>" />
+							<portlet:param name="redirect" value="<%= currentURL %>" />
 						</liferay-portlet:renderURL>
 
 						<a href="<%= viewURL %>"><%= businessUnit.getName() %></a>
