@@ -25,5 +25,17 @@
 		<column name="description" type="String" />
 		<column name="status" type="int" />
 		<column name="statusDate" type="Date" />
+
+		<!-- Order -->
+
+		<order by="desc">
+			<order-column name="statusDate" />
+		</order>
+
+		<!-- Finder methods -->
+
+		<finder name="projectId" return-type="Collection">
+			<finder-column name="projectId" />
+		</finder>
 	</entity>
 </service-builder>
