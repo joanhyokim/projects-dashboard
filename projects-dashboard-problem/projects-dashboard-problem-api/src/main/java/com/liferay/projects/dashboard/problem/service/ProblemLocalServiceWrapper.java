@@ -76,6 +76,15 @@ public class ProblemLocalServiceWrapper implements ProblemLocalService,
 		return _problemLocalService.addProblem(problem);
 	}
 
+	@Override
+	public com.liferay.projects.dashboard.problem.model.Problem addProblem(
+		long userId, long projectId, int type, java.lang.String description,
+		int status, java.util.Date statusDate)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return _problemLocalService.addProblem(userId, projectId, type,
+			description, status, statusDate);
+	}
+
 	/**
 	* Creates a new problem with the primary key. Does not add the problem to the database.
 	*
@@ -144,6 +153,15 @@ public class ProblemLocalServiceWrapper implements ProblemLocalService,
 	public com.liferay.projects.dashboard.problem.model.Problem updateProblem(
 		com.liferay.projects.dashboard.problem.model.Problem problem) {
 		return _problemLocalService.updateProblem(problem);
+	}
+
+	@Override
+	public com.liferay.projects.dashboard.problem.model.Problem updateProblem(
+		long problemId, long projectId, int type, java.lang.String description,
+		int status, java.util.Date statusDate)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return _problemLocalService.updateProblem(problemId, projectId, type,
+			description, status, statusDate);
 	}
 
 	/**
@@ -234,6 +252,13 @@ public class ProblemLocalServiceWrapper implements ProblemLocalService,
 	public java.util.List<com.liferay.projects.dashboard.problem.model.Problem> getProblems(
 		int start, int end) {
 		return _problemLocalService.getProblems(start, end);
+	}
+
+	@Override
+	public java.util.List<com.liferay.projects.dashboard.problem.model.Problem> getProblems(
+		long projectId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return _problemLocalService.getProblems(projectId);
 	}
 
 	/**

@@ -36,6 +36,7 @@ import com.liferay.projects.dashboard.problem.model.Problem;
 
 import java.io.Serializable;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -89,6 +90,10 @@ public interface ProblemLocalService extends BaseLocalService,
 	@Indexable(type = IndexableType.REINDEX)
 	public Problem addProblem(Problem problem);
 
+	public Problem addProblem(long userId, long projectId, int type,
+		java.lang.String description, int status, Date statusDate)
+		throws PortalException;
+
 	/**
 	* Creates a new problem with the primary key. Does not add the problem to the database.
 	*
@@ -137,6 +142,10 @@ public interface ProblemLocalService extends BaseLocalService,
 	*/
 	@Indexable(type = IndexableType.REINDEX)
 	public Problem updateProblem(Problem problem);
+
+	public Problem updateProblem(long problemId, long projectId, int type,
+		java.lang.String description, int status, Date statusDate)
+		throws PortalException;
 
 	/**
 	* Returns the number of problems.
@@ -205,6 +214,9 @@ public interface ProblemLocalService extends BaseLocalService,
 	*/
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<Problem> getProblems(int start, int end);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<Problem> getProblems(long projectId) throws PortalException;
 
 	/**
 	* Returns the number of rows matching the dynamic query.

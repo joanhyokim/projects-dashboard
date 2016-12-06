@@ -79,6 +79,15 @@ public class ProblemLocalServiceUtil {
 		return getService().addProblem(problem);
 	}
 
+	public static com.liferay.projects.dashboard.problem.model.Problem addProblem(
+		long userId, long projectId, int type, java.lang.String description,
+		int status, java.util.Date statusDate)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return getService()
+				   .addProblem(userId, projectId, type, description, status,
+			statusDate);
+	}
+
 	/**
 	* Creates a new problem with the primary key. Does not add the problem to the database.
 	*
@@ -141,6 +150,15 @@ public class ProblemLocalServiceUtil {
 	public static com.liferay.projects.dashboard.problem.model.Problem updateProblem(
 		com.liferay.projects.dashboard.problem.model.Problem problem) {
 		return getService().updateProblem(problem);
+	}
+
+	public static com.liferay.projects.dashboard.problem.model.Problem updateProblem(
+		long problemId, long projectId, int type, java.lang.String description,
+		int status, java.util.Date statusDate)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return getService()
+				   .updateProblem(problemId, projectId, type, description,
+			status, statusDate);
 	}
 
 	/**
@@ -225,6 +243,12 @@ public class ProblemLocalServiceUtil {
 	public static java.util.List<com.liferay.projects.dashboard.problem.model.Problem> getProblems(
 		int start, int end) {
 		return getService().getProblems(start, end);
+	}
+
+	public static java.util.List<com.liferay.projects.dashboard.problem.model.Problem> getProblems(
+		long projectId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return getService().getProblems(projectId);
 	}
 
 	/**
