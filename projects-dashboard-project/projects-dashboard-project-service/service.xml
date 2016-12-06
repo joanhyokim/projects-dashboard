@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <!DOCTYPE service-builder PUBLIC "-//Liferay//DTD Service Builder 6.2.0//EN" "http://www.liferay.com/dtd/liferay-service-builder_6_2_0.dtd">
 
-<service-builder auto-namespace-tables="true" package-path="com.liferay.projects.dashboard">
+<service-builder auto-namespace-tables="true" package-path="com.liferay.projects.dashboard.project">
 	<author>Ryan Park</author>
 	<namespace>PD</namespace>
-	<entity local-service="true" name="Project" remote-service="true" uuid="true">
+	<entity local-service="true" name="Project" remote-service="false" uuid="true">
 
 		<!-- PK fields -->
 

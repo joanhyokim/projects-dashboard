@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 
 <model-hints>
-	<model name="com.liferay.projects.dashboard.model.Project">
+	<model name="com.liferay.projects.dashboard.project.model.Project">
 		<field name="uuid" type="String" />
 		<field name="projectId" type="long" />
 		<field name="companyId" type="long" />

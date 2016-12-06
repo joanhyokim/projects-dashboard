@@ -2,8 +2,8 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping auto-import="false" default-lazy="false">
-	<import class="com.liferay.projects.dashboard.model.Project" />
-	<class name="com.liferay.projects.dashboard.model.impl.ProjectImpl" table="PD_Project">
+	<import class="com.liferay.projects.dashboard.project.model.Project" />
+	<class name="com.liferay.projects.dashboard.project.model.impl.ProjectImpl" table="PD_Project">
 		<id name="projectId" type="long">
 			<generator class="assigned" />
 		</id>

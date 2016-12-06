@@ -30,7 +30,9 @@ page import="com.liferay.portal.kernel.util.HtmlUtil" %><%@
 page import="com.liferay.portal.kernel.util.ParamUtil" %><%@
 page import="com.liferay.portal.kernel.util.StringPool" %><%@
 page import="com.liferay.projects.dashboard.business.unit.model.BusinessUnit" %><%@
-page import="com.liferay.projects.dashboard.business.unit.service.BusinessUnitLocalServiceUtil" %>
+page import="com.liferay.projects.dashboard.business.unit.service.BusinessUnitLocalServiceUtil" %><%@
+page import="com.liferay.projects.dashboard.project.model.Project" %><%@
+page import="com.liferay.projects.dashboard.project.service.ProjectLocalServiceUtil" %>
 
 <%@ page import="java.util.List" %>
 

@@ -80,6 +80,81 @@ long businessUnitId = ParamUtil.getLong(request, "businessUnitId", getDefaultBus
 					url="<%= editProjectURL %>"
 				/>
 			</h3>
+
+
+			<div class="main-content-body">
+				<liferay-ui:search-container
+					emptyResultsMessage="no-projects-were-found"
+					id="projects"
+					iteratorURL="<%= portletURL %>"
+				>
+					<liferay-ui:search-container-results>
+
+						<%
+						total = ProjectLocalServiceUtil.getProjectsCount();
+
+						searchContainer.setTotal(total);
+
+						results = ProjectLocalServiceUtil.getProjects(searchContainer.getStart(), searchContainer.getEnd());
+
+						searchContainer.setResults(results);
+						%>
+
+					</liferay-ui:search-container-results>
+
+					<liferay-ui:search-container-row
+						className="com.liferay.projects.dashboard.project.model.Project"
+						keyProperty="projectId"
+						modelVar="project"
+					>
+						<liferay-portlet:renderURL varImpl="rowURL">
+							<portlet:param name="mvcRenderCommandName" value="/edit_project" />
+							<portlet:param name="projectId" value="<%= String.valueOf(project.getProjectId()) %>" />
+							<portlet:param name="businessUnitId" value="<%= String.valueOf(project.getBusinessUnitId()) %>" />
+						</liferay-portlet:renderURL>
+
+						<liferay-ui:search-container-column-text
+							name="!"
+						>
+							<%= project.getPriority() %>
+						</liferay-ui:search-container-column-text>
+
+						<liferay-ui:search-container-column-text
+							href="<%= rowURL %>"
+							name="Name"
+							property="name"
+						/>
+
+						<liferay-ui:search-container-column-date
+							name="Due Date"
+							property="userName"
+						/>
+
+						<liferay-ui:search-container-column-date
+							name="Status"
+						>
+							<%= project.getStatus() %>
+						</liferay-ui:search-container-column-text>
+
+						<liferay-ui:search-container-column-date
+							name="Health"
+						>
+							<%= project.getHealth() %>
+						</liferay-ui:search-container-column-text>
+					</liferay-ui:search-container-row>
+
+					<liferay-ui:search-iterator displayStyle="list" markupView="lexicon" />
+				</liferay-ui:search-container>
+
+				<portlet:renderURL var="addDocumentationProjectURL">
+					<portlet:param name="mvcRenderCommandName" value="/edit_documentation_project" />
+					<portlet:param name="redirect" value="<%= currentURL %>" />
+				</portlet:renderURL>
+
+				<liferay-frontend:add-menu>
+					<liferay-frontend:add-menu-item title='<%= LanguageUtil.get(request, "add-open-source-project") %>' url="<%= addDocumentationProjectURL %>" />
+				</liferay-frontend:add-menu>
+			</div>
 		</div>
 	</div>
 </div>
