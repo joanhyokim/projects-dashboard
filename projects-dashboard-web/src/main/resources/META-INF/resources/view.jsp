@@ -18,6 +18,10 @@
 
 <%
 long businessUnitId = ParamUtil.getLong(request, "businessUnitId", getDefaultBusinessUnitId());
+
+PortletURL portletURL = renderResponse.createRenderURL();
+
+portletURL.setParameter("mvcRenderCommandName", "/view");
 %>
 
 <div class="view">
@@ -83,7 +87,7 @@ long businessUnitId = ParamUtil.getLong(request, "businessUnitId", getDefaultBus
 
 			<div class="main-content-body">
 				<liferay-ui:search-container
-					emptyResultsMessage="no-projects-were-found"
+					emptyResultsMessage="No Projects"
 					id="projects"
 					iteratorURL="<%= portletURL %>"
 				>
@@ -129,13 +133,13 @@ long businessUnitId = ParamUtil.getLong(request, "businessUnitId", getDefaultBus
 							property="userName"
 						/>
 
-						<liferay-ui:search-container-column-date
+						<liferay-ui:search-container-column-text
 							name="Status"
 						>
 							<%= project.getStatus() %>
 						</liferay-ui:search-container-column-text>
 
-						<liferay-ui:search-container-column-date
+						<liferay-ui:search-container-column-text
 							name="Health"
 						>
 							<%= project.getHealth() %>
