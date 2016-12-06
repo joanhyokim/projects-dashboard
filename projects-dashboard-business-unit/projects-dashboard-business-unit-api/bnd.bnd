@@ -2,9 +2,9 @@ Bundle-Name: Liferay Projects Dashboard Business Unit API
 Bundle-SymbolicName: projects.dashboard.business.unit.api
 Bundle-Version: 1.0.0
 Export-Package:\
-	com.liferay.projects.dashboards.business.unit.exception,\
-	com.liferay.projects.dashboards.business.unit.model,\
-	com.liferay.projects.dashboards.business.unit.service,\
-	com.liferay.projects.dashboards.business.unit.service.persistence
+	com.liferay.projects.dashboard.business.unit.exception,\
+	com.liferay.projects.dashboard.business.unit.model,\
+	com.liferay.projects.dashboard.business.unit.service,\
+	com.liferay.projects.dashboard.business.unit.service.persistence
 Liferay-Releng-Module-Group-Description:
 Liferay-Releng-Module-Group-Title:
