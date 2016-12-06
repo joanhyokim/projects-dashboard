@@ -39,6 +39,7 @@ import com.liferay.projects.dashboard.model.Project;
 
 import java.io.Serializable;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -95,6 +96,11 @@ public interface ProjectLocalService extends BaseLocalService,
 	*/
 	@Indexable(type = IndexableType.REINDEX)
 	public Project addProject(Project project);
+
+	public Project addProject(long userId, java.lang.String name,
+		java.lang.String description, int priority, int health,
+		Date expectedStartDate, Date expectedEndDate, Date actualStartDate,
+		Date actualEndDate, int status) throws PortalException;
 
 	/**
 	* Creates a new project with the primary key. Does not add the project to the database.
@@ -168,6 +174,11 @@ public interface ProjectLocalService extends BaseLocalService,
 	@Indexable(type = IndexableType.REINDEX)
 	public Project updateProject(Project project);
 
+	public Project updateProject(long projectId, java.lang.String name,
+		java.lang.String description, int priority, int health,
+		Date expectedStartDate, Date expectedEndDate, Date actualStartDate,
+		Date actualEndDate, int status) throws PortalException;
+
 	/**
 	* Returns the number of projects.
 	*
@@ -235,6 +246,9 @@ public interface ProjectLocalService extends BaseLocalService,
 	*/
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<Project> getProjects(int start, int end);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<Project> getProjects(int status) throws PortalException;
 
 	/**
 	* Returns the number of rows matching the dynamic query.

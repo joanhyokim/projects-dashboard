@@ -82,6 +82,18 @@ public class ProjectLocalServiceWrapper implements ProjectLocalService,
 		return _projectLocalService.addProject(project);
 	}
 
+	@Override
+	public com.liferay.projects.dashboard.model.Project addProject(
+		long userId, java.lang.String name, java.lang.String description,
+		int priority, int health, java.util.Date expectedStartDate,
+		java.util.Date expectedEndDate, java.util.Date actualStartDate,
+		java.util.Date actualEndDate, int status)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return _projectLocalService.addProject(userId, name, description,
+			priority, health, expectedStartDate, expectedEndDate,
+			actualStartDate, actualEndDate, status);
+	}
+
 	/**
 	* Creates a new project with the primary key. Does not add the project to the database.
 	*
@@ -181,6 +193,18 @@ public class ProjectLocalServiceWrapper implements ProjectLocalService,
 		return _projectLocalService.updateProject(project);
 	}
 
+	@Override
+	public com.liferay.projects.dashboard.model.Project updateProject(
+		long projectId, java.lang.String name, java.lang.String description,
+		int priority, int health, java.util.Date expectedStartDate,
+		java.util.Date expectedEndDate, java.util.Date actualStartDate,
+		java.util.Date actualEndDate, int status)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return _projectLocalService.updateProject(projectId, name, description,
+			priority, health, expectedStartDate, expectedEndDate,
+			actualStartDate, actualEndDate, status);
+	}
+
 	/**
 	* Returns the number of projects.
 	*
@@ -269,6 +293,12 @@ public class ProjectLocalServiceWrapper implements ProjectLocalService,
 	public java.util.List<com.liferay.projects.dashboard.model.Project> getProjects(
 		int start, int end) {
 		return _projectLocalService.getProjects(start, end);
+	}
+
+	@Override
+	public java.util.List<com.liferay.projects.dashboard.model.Project> getProjects(
+		int status) throws com.liferay.portal.kernel.exception.PortalException {
+		return _projectLocalService.getProjects(status);
 	}
 
 	/**

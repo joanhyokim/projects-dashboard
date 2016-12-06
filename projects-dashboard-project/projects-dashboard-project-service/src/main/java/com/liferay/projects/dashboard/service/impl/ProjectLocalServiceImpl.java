@@ -16,27 +16,77 @@ package com.liferay.projects.dashboard.service.impl;
 
 import aQute.bnd.annotation.ProviderType;
 
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.model.User;
+import com.liferay.projects.dashboard.model.Project;
 import com.liferay.projects.dashboard.service.base.ProjectLocalServiceBaseImpl;
 
+import java.util.Date;
+import java.util.List;
+
 /**
- * The implementation of the project local service.
- *
- * <p>
- * All custom service methods should be put in this class. Whenever methods are added, rerun ServiceBuilder to copy their definitions into the {@link com.liferay.projects.dashboard.service.ProjectLocalService} interface.
- *
- * <p>
- * This is a local service. Methods of this service will not have security checks based on the propagated JAAS credentials because this service can only be accessed from within the same VM.
- * </p>
- *
- * @author Ryan Park
- * @see ProjectLocalServiceBaseImpl
- * @see com.liferay.projects.dashboard.service.ProjectLocalServiceUtil
+ * @author Joan H. Kim
  */
 @ProviderType
 public class ProjectLocalServiceImpl extends ProjectLocalServiceBaseImpl {
-	/*
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never reference this class directly. Always use {@link com.liferay.projects.dashboard.service.ProjectLocalServiceUtil} to access the project local service.
-	 */
+
+	public Project addProject(long userId, String name, String description,
+			int priority, int health, Date expectedStartDate,
+			Date expectedEndDate, Date actualStartDate, Date actualEndDate,
+			int status)
+		throws PortalException {
+
+		Date now = new Date();
+		User user = userLocalService.getUser(userId);
+
+		long projectId = counterLocalService.increment();
+
+		Project project = projectPersistence.create(projectId);
+
+		project.setCompanyId(user.getCompanyId());
+		project.setUserId(userId);
+		project.setUserName(user.getFullName());
+		project.setCreateDate(now);
+		project.setModifiedDate(now);
+		project.setName(name);
+		project.setDescription(description);
+		project.setPriority(priority);
+		project.setHealth(health);
+		project.setExpectedStartDate(expectedStartDate);
+		project.setExpectedEndDate(expectedEndDate);
+		project.setActualStartDate(actualStartDate);
+		project.setActualEndDate(actualEndDate);
+		project.setStatus(status);
+
+		return projectPersistence.update(project);
+	}
+
+	public List<Project> getProjects(int status) throws PortalException {
+		return projectPersistence.findByStatus(status);
+	}
+
+	public Project updateProject(
+			long projectId, String name, String description, int priority,
+			int health, Date expectedStartDate, Date expectedEndDate,
+			Date actualStartDate, Date actualEndDate, int status)
+		throws PortalException {
+
+		Date now = new Date();
+
+		Project project = projectPersistence.findByPrimaryKey(projectId);
+
+		project.setModifiedDate(now);
+		project.setName(name);
+		project.setDescription(description);
+		project.setPriority(priority);
+		project.setHealth(health);
+		project.setExpectedStartDate(expectedStartDate);
+		project.setExpectedEndDate(expectedEndDate);
+		project.setActualStartDate(actualStartDate);
+		project.setActualEndDate(actualEndDate);
+		project.setStatus(status);
+
+		return projectPersistence.update(project);
+	}
+
 }

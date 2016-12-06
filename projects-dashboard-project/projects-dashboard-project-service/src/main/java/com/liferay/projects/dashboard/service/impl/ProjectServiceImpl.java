@@ -34,7 +34,8 @@ import com.liferay.projects.dashboard.service.base.ProjectServiceBaseImpl;
  */
 @ProviderType
 public class ProjectServiceImpl extends ProjectServiceBaseImpl {
-	/*
+
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never reference this class directly. Always use {@link com.liferay.projects.dashboard.service.ProjectServiceUtil} to access the project remote service.
