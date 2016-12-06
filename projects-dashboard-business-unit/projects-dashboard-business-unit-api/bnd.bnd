@@ -1,5 +1,5 @@
 Bundle-Name: Liferay Projects Dashboard Business Unit API
-Bundle-SymbolicName: projects.dashboard.business.unit.api
+Bundle-SymbolicName: com.liferay.projects.dashboard.business.unit.api
 Bundle-Version: 1.0.0
 Export-Package:\
 	com.liferay.projects.dashboard.business.unit.exception,\
