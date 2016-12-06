@@ -16,6 +16,8 @@ package com.liferay.projects.dashboards.business.unit.service.impl;
 
 import aQute.bnd.annotation.ProviderType;
 
+import com.liferay.projects.dashboards.business.unit.exception.NoSuchBusinessUnitException;
+import com.liferay.projects.dashboards.business.unit.model.BusinessUnit;
 import com.liferay.projects.dashboards.business.unit.service.base.BusinessUnitLocalServiceBaseImpl;
 
 /**
@@ -35,9 +37,34 @@ import com.liferay.projects.dashboards.business.unit.service.base.BusinessUnitLo
 @ProviderType
 public class BusinessUnitLocalServiceImpl
 	extends BusinessUnitLocalServiceBaseImpl {
-	/*
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never reference this class directly. Always use {@link com.liferay.projects.dashboards.business.unit.service.BusinessUnitLocalServiceUtil} to access the business unit local service.
-	 */
+
+	public BusinessUnit addBusinessUnit(String name) {
+
+		long businessUnitId = counterLocalService.increment();
+
+		BusinessUnit businessUnit = businessUnitPersistence.create(
+			businessUnitId);
+
+		businessUnit.setName(name);
+
+		return businessUnitPersistence.update(businessUnit);
+	}
+
+	public BusinessUnit getDocumentationProject(String name)
+		throws NoSuchBusinessUnitException {
+
+		return businessUnitPersistence.findByName(name);
+	}
+
+	public BusinessUnit updateBusinessUnit(long businessUnitId, String name)
+		throws NoSuchBusinessUnitException {
+
+		BusinessUnit businessUnit = businessUnitPersistence.findByPrimaryKey(
+			businessUnitId);
+
+		businessUnit.setName(name);
+
+		return businessUnitPersistence.update(businessUnit);
+	}
+
 }
