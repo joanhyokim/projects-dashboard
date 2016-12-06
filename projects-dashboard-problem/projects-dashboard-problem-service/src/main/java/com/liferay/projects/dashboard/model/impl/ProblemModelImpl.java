@@ -26,6 +26,7 @@ import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.model.impl.BaseModelImpl;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.UserLocalServiceUtil;
+import com.liferay.portal.kernel.util.DateUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.StringBundler;
@@ -95,8 +96,8 @@ public class ProblemModelImpl extends BaseModelImpl<Problem>
 
 	public static final String TABLE_SQL_CREATE = "create table PD_Problem (problemId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,projectId LONG,type_ INTEGER,description VARCHAR(75) null,status INTEGER,statusDate DATE null)";
 	public static final String TABLE_SQL_DROP = "drop table PD_Problem";
-	public static final String ORDER_BY_JPQL = " ORDER BY problem.problemId ASC";
-	public static final String ORDER_BY_SQL = " ORDER BY PD_Problem.problemId ASC";
+	public static final String ORDER_BY_JPQL = " ORDER BY problem.statusDate DESC";
+	public static final String ORDER_BY_SQL = " ORDER BY PD_Problem.statusDate DESC";
 	public static final String DATA_SOURCE = "liferayDataSource";
 	public static final String SESSION_FACTORY = "liferaySessionFactory";
 	public static final String TX_MANAGER = "liferayTransactionManager";
@@ -106,7 +107,11 @@ public class ProblemModelImpl extends BaseModelImpl<Problem>
 	public static final boolean FINDER_CACHE_ENABLED = GetterUtil.getBoolean(com.liferay.projects.dashboard.problem.service.util.ServiceProps.get(
 				"value.object.finder.cache.enabled.com.liferay.projects.dashboard.model.Problem"),
 			true);
-	public static final boolean COLUMN_BITMASK_ENABLED = false;
+	public static final boolean COLUMN_BITMASK_ENABLED = GetterUtil.getBoolean(com.liferay.projects.dashboard.problem.service.util.ServiceProps.get(
+				"value.object.column.bitmask.enabled.com.liferay.projects.dashboard.model.Problem"),
+			true);
+	public static final long PROJECTID_COLUMN_BITMASK = 1L;
+	public static final long STATUSDATE_COLUMN_BITMASK = 2L;
 	public static final long LOCK_EXPIRATION_TIME = GetterUtil.getLong(com.liferay.projects.dashboard.problem.service.util.ServiceProps.get(
 				"lock.expiration.time.com.liferay.projects.dashboard.model.Problem"));
 
@@ -328,7 +333,19 @@ public class ProblemModelImpl extends BaseModelImpl<Problem>
 
 	@Override
 	public void setProjectId(long projectId) {
+		_columnBitmask |= PROJECTID_COLUMN_BITMASK;
+
+		if (!_setOriginalProjectId) {
+			_setOriginalProjectId = true;
+
+			_originalProjectId = _projectId;
+		}
+
 		_projectId = projectId;
+	}
+
+	public long getOriginalProjectId() {
+		return _originalProjectId;
 	}
 
 	@Override
@@ -373,7 +390,13 @@ public class ProblemModelImpl extends BaseModelImpl<Problem>
 
 	@Override
 	public void setStatusDate(Date statusDate) {
+		_columnBitmask = -1L;
+
 		_statusDate = statusDate;
+	}
+
+	public long getColumnBitmask() {
+		return _columnBitmask;
 	}
 
 	@Override
@@ -422,17 +445,17 @@ public class ProblemModelImpl extends BaseModelImpl<Problem>
 
 	@Override
 	public int compareTo(Problem problem) {
-		long primaryKey = problem.getPrimaryKey();
+		int value = 0;
 
-		if (getPrimaryKey() < primaryKey) {
-			return -1;
+		value = DateUtil.compareTo(getStatusDate(), problem.getStatusDate());
+
+		value = value * -1;
+
+		if (value != 0) {
+			return value;
 		}
-		else if (getPrimaryKey() > primaryKey) {
-			return 1;
-		}
-		else {
-			return 0;
-		}
+
+		return 0;
 	}
 
 	@Override
@@ -477,6 +500,12 @@ public class ProblemModelImpl extends BaseModelImpl<Problem>
 		ProblemModelImpl problemModelImpl = this;
 
 		problemModelImpl._setModifiedDate = false;
+
+		problemModelImpl._originalProjectId = problemModelImpl._projectId;
+
+		problemModelImpl._setOriginalProjectId = false;
+
+		problemModelImpl._columnBitmask = 0;
 	}
 
 	@Override
@@ -642,9 +671,12 @@ public class ProblemModelImpl extends BaseModelImpl<Problem>
 	private Date _modifiedDate;
 	private boolean _setModifiedDate;
 	private long _projectId;
+	private long _originalProjectId;
+	private boolean _setOriginalProjectId;
 	private int _type;
 	private String _description;
 	private int _status;
 	private Date _statusDate;
+	private long _columnBitmask;
 	private Problem _escapedModel;
 }

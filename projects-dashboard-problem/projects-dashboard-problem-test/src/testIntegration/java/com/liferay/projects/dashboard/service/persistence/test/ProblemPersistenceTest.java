@@ -171,6 +171,13 @@ public class ProblemPersistenceTest {
 	}
 
 	@Test
+	public void testCountByprojectId() throws Exception {
+		_persistence.countByprojectId(RandomTestUtil.nextLong());
+
+		_persistence.countByprojectId(0L);
+	}
+
+	@Test
 	public void testFindByPrimaryKeyExisting() throws Exception {
 		Problem newProblem = addProblem();
 
