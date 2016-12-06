@@ -35,6 +35,7 @@ import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
 import com.liferay.portal.kernel.util.OrderByComparator;
 
+import com.liferay.projects.dashboards.business.unit.exception.NoSuchBusinessUnitException;
 import com.liferay.projects.dashboards.business.unit.model.BusinessUnit;
 
 import java.io.Serializable;
@@ -95,6 +96,8 @@ public interface BusinessUnitLocalService extends BaseLocalService,
 	*/
 	@Indexable(type = IndexableType.REINDEX)
 	public BusinessUnit addBusinessUnit(BusinessUnit businessUnit);
+
+	public BusinessUnit addBusinessUnit(java.lang.String name);
 
 	/**
 	* Creates a new business unit with the primary key. Does not add the business unit to the database.
@@ -161,6 +164,10 @@ public interface BusinessUnitLocalService extends BaseLocalService,
 	public BusinessUnit getBusinessUnitByUuidAndCompanyId(
 		java.lang.String uuid, long companyId) throws PortalException;
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public BusinessUnit getDocumentationProject(java.lang.String name)
+		throws NoSuchBusinessUnitException;
+
 	/**
 	* Updates the business unit in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
 	*
@@ -169,6 +176,9 @@ public interface BusinessUnitLocalService extends BaseLocalService,
 	*/
 	@Indexable(type = IndexableType.REINDEX)
 	public BusinessUnit updateBusinessUnit(BusinessUnit businessUnit);
+
+	public BusinessUnit updateBusinessUnit(long businessUnitId,
+		java.lang.String name) throws NoSuchBusinessUnitException;
 
 	/**
 	* Returns the number of business units.

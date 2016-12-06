@@ -16,8 +16,6 @@ package com.liferay.projects.dashboards.business.unit.model;
 
 import aQute.bnd.annotation.ProviderType;
 
-import com.liferay.projects.dashboards.business.unit.service.persistence.ProjectBUPK;
-
 import java.io.Serializable;
 
 import java.util.ArrayList;
@@ -36,13 +34,14 @@ public class ProjectBUSoap implements Serializable {
 		ProjectBUSoap soapModel = new ProjectBUSoap();
 
 		soapModel.setUuid(model.getUuid());
-		soapModel.setBusinessUnitId(model.getBusinessUnitId());
-		soapModel.setProjectId(model.getProjectId());
+		soapModel.setProjectBUId(model.getProjectBUId());
 		soapModel.setCompanyId(model.getCompanyId());
 		soapModel.setUserId(model.getUserId());
 		soapModel.setUserName(model.getUserName());
 		soapModel.setCreateDate(model.getCreateDate());
 		soapModel.setModifiedDate(model.getModifiedDate());
+		soapModel.setBusinessUnitId(model.getBusinessUnitId());
+		soapModel.setProjectId(model.getProjectId());
 		soapModel.setType(model.getType());
 
 		return soapModel;
@@ -88,13 +87,12 @@ public class ProjectBUSoap implements Serializable {
 	public ProjectBUSoap() {
 	}
 
-	public ProjectBUPK getPrimaryKey() {
-		return new ProjectBUPK(_businessUnitId, _projectId);
+	public long getPrimaryKey() {
+		return _projectBUId;
 	}
 
-	public void setPrimaryKey(ProjectBUPK pk) {
-		setBusinessUnitId(pk.businessUnitId);
-		setProjectId(pk.projectId);
+	public void setPrimaryKey(long pk) {
+		setProjectBUId(pk);
 	}
 
 	public String getUuid() {
@@ -105,20 +103,12 @@ public class ProjectBUSoap implements Serializable {
 		_uuid = uuid;
 	}
 
-	public long getBusinessUnitId() {
-		return _businessUnitId;
+	public long getProjectBUId() {
+		return _projectBUId;
 	}
 
-	public void setBusinessUnitId(long businessUnitId) {
-		_businessUnitId = businessUnitId;
-	}
-
-	public long getProjectId() {
-		return _projectId;
-	}
-
-	public void setProjectId(long projectId) {
-		_projectId = projectId;
+	public void setProjectBUId(long projectBUId) {
+		_projectBUId = projectBUId;
 	}
 
 	public long getCompanyId() {
@@ -161,6 +151,22 @@ public class ProjectBUSoap implements Serializable {
 		_modifiedDate = modifiedDate;
 	}
 
+	public long getBusinessUnitId() {
+		return _businessUnitId;
+	}
+
+	public void setBusinessUnitId(long businessUnitId) {
+		_businessUnitId = businessUnitId;
+	}
+
+	public long getProjectId() {
+		return _projectId;
+	}
+
+	public void setProjectId(long projectId) {
+		_projectId = projectId;
+	}
+
 	public String getType() {
 		return _type;
 	}
@@ -170,12 +176,13 @@ public class ProjectBUSoap implements Serializable {
 	}
 
 	private String _uuid;
-	private long _businessUnitId;
-	private long _projectId;
+	private long _projectBUId;
 	private long _companyId;
 	private long _userId;
 	private String _userName;
 	private Date _createDate;
 	private Date _modifiedDate;
+	private long _businessUnitId;
+	private long _projectId;
 	private String _type;
 }

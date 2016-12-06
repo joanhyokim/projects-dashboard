@@ -51,7 +51,6 @@ import com.liferay.portal.spring.extender.service.ServiceReference;
 import com.liferay.projects.dashboards.business.unit.model.ProjectBU;
 import com.liferay.projects.dashboards.business.unit.service.ProjectBULocalService;
 import com.liferay.projects.dashboards.business.unit.service.persistence.BusinessUnitPersistence;
-import com.liferay.projects.dashboards.business.unit.service.persistence.ProjectBUPK;
 import com.liferay.projects.dashboards.business.unit.service.persistence.ProjectBUPersistence;
 
 import java.io.Serializable;
@@ -98,26 +97,26 @@ public abstract class ProjectBULocalServiceBaseImpl extends BaseLocalServiceImpl
 	/**
 	 * Creates a new project b u with the primary key. Does not add the project b u to the database.
 	 *
-	 * @param projectBUPK the primary key for the new project b u
+	 * @param projectBUId the primary key for the new project b u
 	 * @return the new project b u
 	 */
 	@Override
-	public ProjectBU createProjectBU(ProjectBUPK projectBUPK) {
-		return projectBUPersistence.create(projectBUPK);
+	public ProjectBU createProjectBU(long projectBUId) {
+		return projectBUPersistence.create(projectBUId);
 	}
 
 	/**
 	 * Deletes the project b u with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
-	 * @param projectBUPK the primary key of the project b u
+	 * @param projectBUId the primary key of the project b u
 	 * @return the project b u that was removed
 	 * @throws PortalException if a project b u with the primary key could not be found
 	 */
 	@Indexable(type = IndexableType.DELETE)
 	@Override
-	public ProjectBU deleteProjectBU(ProjectBUPK projectBUPK)
+	public ProjectBU deleteProjectBU(long projectBUId)
 		throws PortalException {
-		return projectBUPersistence.remove(projectBUPK);
+		return projectBUPersistence.remove(projectBUId);
 	}
 
 	/**
@@ -216,8 +215,8 @@ public abstract class ProjectBULocalServiceBaseImpl extends BaseLocalServiceImpl
 	}
 
 	@Override
-	public ProjectBU fetchProjectBU(ProjectBUPK projectBUPK) {
-		return projectBUPersistence.fetchByPrimaryKey(projectBUPK);
+	public ProjectBU fetchProjectBU(long projectBUId) {
+		return projectBUPersistence.fetchByPrimaryKey(projectBUId);
 	}
 
 	/**
@@ -236,14 +235,13 @@ public abstract class ProjectBULocalServiceBaseImpl extends BaseLocalServiceImpl
 	/**
 	 * Returns the project b u with the primary key.
 	 *
-	 * @param projectBUPK the primary key of the project b u
+	 * @param projectBUId the primary key of the project b u
 	 * @return the project b u
 	 * @throws PortalException if a project b u with the primary key could not be found
 	 */
 	@Override
-	public ProjectBU getProjectBU(ProjectBUPK projectBUPK)
-		throws PortalException {
-		return projectBUPersistence.findByPrimaryKey(projectBUPK);
+	public ProjectBU getProjectBU(long projectBUId) throws PortalException {
+		return projectBUPersistence.findByPrimaryKey(projectBUId);
 	}
 
 	@Override
@@ -254,8 +252,7 @@ public abstract class ProjectBULocalServiceBaseImpl extends BaseLocalServiceImpl
 		actionableDynamicQuery.setClassLoader(getClassLoader());
 		actionableDynamicQuery.setModelClass(ProjectBU.class);
 
-		actionableDynamicQuery.setPrimaryKeyPropertyName(
-			"primaryKey.businessUnitId");
+		actionableDynamicQuery.setPrimaryKeyPropertyName("projectBUId");
 
 		return actionableDynamicQuery;
 	}
@@ -268,8 +265,7 @@ public abstract class ProjectBULocalServiceBaseImpl extends BaseLocalServiceImpl
 		indexableActionableDynamicQuery.setClassLoader(getClassLoader());
 		indexableActionableDynamicQuery.setModelClass(ProjectBU.class);
 
-		indexableActionableDynamicQuery.setPrimaryKeyPropertyName(
-			"primaryKey.businessUnitId");
+		indexableActionableDynamicQuery.setPrimaryKeyPropertyName("projectBUId");
 
 		return indexableActionableDynamicQuery;
 	}
@@ -280,8 +276,7 @@ public abstract class ProjectBULocalServiceBaseImpl extends BaseLocalServiceImpl
 		actionableDynamicQuery.setClassLoader(getClassLoader());
 		actionableDynamicQuery.setModelClass(ProjectBU.class);
 
-		actionableDynamicQuery.setPrimaryKeyPropertyName(
-			"primaryKey.businessUnitId");
+		actionableDynamicQuery.setPrimaryKeyPropertyName("projectBUId");
 	}
 
 	@Override

@@ -37,27 +37,10 @@ public interface ProjectBU extends ProjectBUModel, PersistedModel {
 	 *
 	 * Never modify this interface directly. Add methods to {@link com.liferay.projects.dashboards.business.unit.model.impl.ProjectBUImpl} and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
-	public static final Accessor<ProjectBU, Long> BUSINESS_UNIT_ID_ACCESSOR = new Accessor<ProjectBU, Long>() {
+	public static final Accessor<ProjectBU, Long> PROJECT_B_U_ID_ACCESSOR = new Accessor<ProjectBU, Long>() {
 			@Override
 			public Long get(ProjectBU projectBU) {
-				return projectBU.getBusinessUnitId();
-			}
-
-			@Override
-			public Class<Long> getAttributeClass() {
-				return Long.class;
-			}
-
-			@Override
-			public Class<ProjectBU> getTypeClass() {
-				return ProjectBU.class;
-			}
-		};
-
-	public static final Accessor<ProjectBU, Long> PROJECT_ID_ACCESSOR = new Accessor<ProjectBU, Long>() {
-			@Override
-			public Long get(ProjectBU projectBU) {
-				return projectBU.getProjectId();
+				return projectBU.getProjectBUId();
 			}
 
 			@Override

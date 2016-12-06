@@ -84,6 +84,11 @@ public class BusinessUnitLocalServiceUtil {
 		return getService().addBusinessUnit(businessUnit);
 	}
 
+	public static com.liferay.projects.dashboards.business.unit.model.BusinessUnit addBusinessUnit(
+		java.lang.String name) {
+		return getService().addBusinessUnit(name);
+	}
+
 	/**
 	* Creates a new business unit with the primary key. Does not add the business unit to the database.
 	*
@@ -163,6 +168,12 @@ public class BusinessUnitLocalServiceUtil {
 		return getService().getBusinessUnitByUuidAndCompanyId(uuid, companyId);
 	}
 
+	public static com.liferay.projects.dashboards.business.unit.model.BusinessUnit getDocumentationProject(
+		java.lang.String name)
+		throws com.liferay.projects.dashboards.business.unit.exception.NoSuchBusinessUnitException {
+		return getService().getDocumentationProject(name);
+	}
+
 	/**
 	* Updates the business unit in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
 	*
@@ -172,6 +183,12 @@ public class BusinessUnitLocalServiceUtil {
 	public static com.liferay.projects.dashboards.business.unit.model.BusinessUnit updateBusinessUnit(
 		com.liferay.projects.dashboards.business.unit.model.BusinessUnit businessUnit) {
 		return getService().updateBusinessUnit(businessUnit);
+	}
+
+	public static com.liferay.projects.dashboards.business.unit.model.BusinessUnit updateBusinessUnit(
+		long businessUnitId, java.lang.String name)
+		throws com.liferay.projects.dashboards.business.unit.exception.NoSuchBusinessUnitException {
+		return getService().updateBusinessUnit(businessUnitId, name);
 	}
 
 	/**

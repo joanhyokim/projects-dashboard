@@ -13,13 +13,14 @@
 	</model>
 	<model name="com.liferay.projects.dashboards.business.unit.model.ProjectBU">
 		<field name="uuid" type="String" />
-		<field name="businessUnitId" type="long" />
-		<field name="projectId" type="long" />
+		<field name="projectBUId" type="long" />
 		<field name="companyId" type="long" />
 		<field name="userId" type="long" />
 		<field name="userName" type="String" />
 		<field name="createDate" type="Date" />
 		<field name="modifiedDate" type="Date" />
+		<field name="businessUnitId" type="long" />
+		<field name="projectId" type="long" />
 		<field name="type" type="String" />
 	</model>
 </model-hints>

@@ -84,15 +84,20 @@ public class ProjectBULocalServiceUtil {
 		return getService().addProjectBU(projectBU);
 	}
 
+	public static com.liferay.projects.dashboards.business.unit.model.ProjectBU addProjectBU(
+		long projectId, long businessUnitId, java.lang.String type) {
+		return getService().addProjectBU(projectId, businessUnitId, type);
+	}
+
 	/**
 	* Creates a new project b u with the primary key. Does not add the project b u to the database.
 	*
-	* @param projectBUPK the primary key for the new project b u
+	* @param projectBUId the primary key for the new project b u
 	* @return the new project b u
 	*/
 	public static com.liferay.projects.dashboards.business.unit.model.ProjectBU createProjectBU(
-		com.liferay.projects.dashboards.business.unit.service.persistence.ProjectBUPK projectBUPK) {
-		return getService().createProjectBU(projectBUPK);
+		long projectBUId) {
+		return getService().createProjectBU(projectBUId);
 	}
 
 	/**
@@ -109,19 +114,19 @@ public class ProjectBULocalServiceUtil {
 	/**
 	* Deletes the project b u with the primary key from the database. Also notifies the appropriate model listeners.
 	*
-	* @param projectBUPK the primary key of the project b u
+	* @param projectBUId the primary key of the project b u
 	* @return the project b u that was removed
 	* @throws PortalException if a project b u with the primary key could not be found
 	*/
 	public static com.liferay.projects.dashboards.business.unit.model.ProjectBU deleteProjectBU(
-		com.liferay.projects.dashboards.business.unit.service.persistence.ProjectBUPK projectBUPK)
+		long projectBUId)
 		throws com.liferay.portal.kernel.exception.PortalException {
-		return getService().deleteProjectBU(projectBUPK);
+		return getService().deleteProjectBU(projectBUId);
 	}
 
 	public static com.liferay.projects.dashboards.business.unit.model.ProjectBU fetchProjectBU(
-		com.liferay.projects.dashboards.business.unit.service.persistence.ProjectBUPK projectBUPK) {
-		return getService().fetchProjectBU(projectBUPK);
+		long projectBUId) {
+		return getService().fetchProjectBU(projectBUId);
 	}
 
 	/**
@@ -139,14 +144,14 @@ public class ProjectBULocalServiceUtil {
 	/**
 	* Returns the project b u with the primary key.
 	*
-	* @param projectBUPK the primary key of the project b u
+	* @param projectBUId the primary key of the project b u
 	* @return the project b u
 	* @throws PortalException if a project b u with the primary key could not be found
 	*/
 	public static com.liferay.projects.dashboards.business.unit.model.ProjectBU getProjectBU(
-		com.liferay.projects.dashboards.business.unit.service.persistence.ProjectBUPK projectBUPK)
+		long projectBUId)
 		throws com.liferay.portal.kernel.exception.PortalException {
-		return getService().getProjectBU(projectBUPK);
+		return getService().getProjectBU(projectBUId);
 	}
 
 	/**
@@ -172,6 +177,14 @@ public class ProjectBULocalServiceUtil {
 	public static com.liferay.projects.dashboards.business.unit.model.ProjectBU updateProjectBU(
 		com.liferay.projects.dashboards.business.unit.model.ProjectBU projectBU) {
 		return getService().updateProjectBU(projectBU);
+	}
+
+	public static com.liferay.projects.dashboards.business.unit.model.ProjectBU updateProjectBU(
+		long projectBUId, long projectId, long businessUnitId,
+		java.lang.String type)
+		throws com.liferay.projects.dashboards.business.unit.exception.NoSuchProjectBUException {
+		return getService()
+				   .updateProjectBU(projectBUId, projectId, businessUnitId, type);
 	}
 
 	/**
@@ -256,6 +269,11 @@ public class ProjectBULocalServiceUtil {
 	public static java.util.List<com.liferay.projects.dashboards.business.unit.model.ProjectBU> getProjectBUs(
 		int start, int end) {
 		return getService().getProjectBUs(start, end);
+	}
+
+	public static java.util.List<com.liferay.projects.dashboards.business.unit.model.ProjectBU> getProjectBUs(
+		java.lang.String type) {
+		return getService().getProjectBUs(type);
 	}
 
 	/**

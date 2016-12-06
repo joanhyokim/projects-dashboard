@@ -25,8 +25,6 @@ import com.liferay.portal.kernel.model.ShardedModel;
 import com.liferay.portal.kernel.model.StagedAuditedModel;
 import com.liferay.portal.kernel.service.ServiceContext;
 
-import com.liferay.projects.dashboards.business.unit.service.persistence.ProjectBUPK;
-
 import java.io.Serializable;
 
 import java.util.Date;
@@ -58,14 +56,14 @@ public interface ProjectBUModel extends BaseModel<ProjectBU>, ShardedModel,
 	 *
 	 * @return the primary key of this project b u
 	 */
-	public ProjectBUPK getPrimaryKey();
+	public long getPrimaryKey();
 
 	/**
 	 * Sets the primary key of this project b u.
 	 *
 	 * @param primaryKey the primary key of this project b u
 	 */
-	public void setPrimaryKey(ProjectBUPK primaryKey);
+	public void setPrimaryKey(long primaryKey);
 
 	/**
 	 * Returns the uuid of this project b u.
@@ -85,32 +83,18 @@ public interface ProjectBUModel extends BaseModel<ProjectBU>, ShardedModel,
 	public void setUuid(String uuid);
 
 	/**
-	 * Returns the business unit ID of this project b u.
+	 * Returns the project b u ID of this project b u.
 	 *
-	 * @return the business unit ID of this project b u
+	 * @return the project b u ID of this project b u
 	 */
-	public long getBusinessUnitId();
+	public long getProjectBUId();
 
 	/**
-	 * Sets the business unit ID of this project b u.
+	 * Sets the project b u ID of this project b u.
 	 *
-	 * @param businessUnitId the business unit ID of this project b u
+	 * @param projectBUId the project b u ID of this project b u
 	 */
-	public void setBusinessUnitId(long businessUnitId);
-
-	/**
-	 * Returns the project ID of this project b u.
-	 *
-	 * @return the project ID of this project b u
-	 */
-	public long getProjectId();
-
-	/**
-	 * Sets the project ID of this project b u.
-	 *
-	 * @param projectId the project ID of this project b u
-	 */
-	public void setProjectId(long projectId);
+	public void setProjectBUId(long projectBUId);
 
 	/**
 	 * Returns the company ID of this project b u.
@@ -208,6 +192,34 @@ public interface ProjectBUModel extends BaseModel<ProjectBU>, ShardedModel,
 	 */
 	@Override
 	public void setModifiedDate(Date modifiedDate);
+
+	/**
+	 * Returns the business unit ID of this project b u.
+	 *
+	 * @return the business unit ID of this project b u
+	 */
+	public long getBusinessUnitId();
+
+	/**
+	 * Sets the business unit ID of this project b u.
+	 *
+	 * @param businessUnitId the business unit ID of this project b u
+	 */
+	public void setBusinessUnitId(long businessUnitId);
+
+	/**
+	 * Returns the project ID of this project b u.
+	 *
+	 * @return the project ID of this project b u
+	 */
+	public long getProjectId();
+
+	/**
+	 * Sets the project ID of this project b u.
+	 *
+	 * @param projectId the project ID of this project b u
+	 */
+	public void setProjectId(long projectId);
 
 	/**
 	 * Returns the type of this project b u.

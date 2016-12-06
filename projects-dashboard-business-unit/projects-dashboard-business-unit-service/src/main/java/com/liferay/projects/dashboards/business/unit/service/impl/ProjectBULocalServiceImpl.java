@@ -16,7 +16,11 @@ package com.liferay.projects.dashboards.business.unit.service.impl;
 
 import aQute.bnd.annotation.ProviderType;
 
+import com.liferay.projects.dashboards.business.unit.exception.NoSuchProjectBUException;
+import com.liferay.projects.dashboards.business.unit.model.ProjectBU;
 import com.liferay.projects.dashboards.business.unit.service.base.ProjectBULocalServiceBaseImpl;
+
+import java.util.List;
 
 /**
  * The implementation of the project b u local service.
@@ -34,9 +38,40 @@ import com.liferay.projects.dashboards.business.unit.service.base.ProjectBULocal
  */
 @ProviderType
 public class ProjectBULocalServiceImpl extends ProjectBULocalServiceBaseImpl {
-	/*
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never reference this class directly. Always use {@link com.liferay.projects.dashboards.business.unit.service.ProjectBULocalServiceUtil} to access the project b u local service.
-	 */
+
+	public ProjectBU addProjectBU(
+		long projectId, long businessUnitId, String type) {
+
+		long projectBUId = counterLocalService.increment();
+
+		ProjectBU projectBU = projectBUPersistence.create(projectBUId);
+
+		projectBU.setBusinessUnitId(businessUnitId);
+		projectBU.setProjectId(projectId);
+		projectBU.setType(type);
+
+		return projectBUPersistence.update(projectBU);
+	}
+
+	public List<ProjectBU> getProjectBUs(String type) {
+
+		List<ProjectBU> projectBUs = projectBUPersistence.findByType(type);
+
+		return projectBUs;
+	}
+
+	public ProjectBU updateProjectBU(
+			long projectBUId, long projectId, long businessUnitId, String type)
+		throws NoSuchProjectBUException {
+
+		ProjectBU projectBU = projectBUPersistence.findByPrimaryKey(
+			projectBUId);
+
+		projectBU.setProjectId(projectId);
+		projectBU.setBusinessUnitId(businessUnitId);
+		projectBU.setType(type);
+
+		return projectBUPersistence.update(projectBU);
+	};
+
 }

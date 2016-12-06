@@ -35,8 +35,8 @@ import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
 import com.liferay.portal.kernel.util.OrderByComparator;
 
+import com.liferay.projects.dashboards.business.unit.exception.NoSuchProjectBUException;
 import com.liferay.projects.dashboards.business.unit.model.ProjectBU;
-import com.liferay.projects.dashboards.business.unit.service.persistence.ProjectBUPK;
 
 import java.io.Serializable;
 
@@ -97,13 +97,16 @@ public interface ProjectBULocalService extends BaseLocalService,
 	@Indexable(type = IndexableType.REINDEX)
 	public ProjectBU addProjectBU(ProjectBU projectBU);
 
+	public ProjectBU addProjectBU(long projectId, long businessUnitId,
+		java.lang.String type);
+
 	/**
 	* Creates a new project b u with the primary key. Does not add the project b u to the database.
 	*
-	* @param projectBUPK the primary key for the new project b u
+	* @param projectBUId the primary key for the new project b u
 	* @return the new project b u
 	*/
-	public ProjectBU createProjectBU(ProjectBUPK projectBUPK);
+	public ProjectBU createProjectBU(long projectBUId);
 
 	/**
 	* Deletes the project b u from the database. Also notifies the appropriate model listeners.
@@ -117,16 +120,16 @@ public interface ProjectBULocalService extends BaseLocalService,
 	/**
 	* Deletes the project b u with the primary key from the database. Also notifies the appropriate model listeners.
 	*
-	* @param projectBUPK the primary key of the project b u
+	* @param projectBUId the primary key of the project b u
 	* @return the project b u that was removed
 	* @throws PortalException if a project b u with the primary key could not be found
 	*/
 	@Indexable(type = IndexableType.DELETE)
-	public ProjectBU deleteProjectBU(ProjectBUPK projectBUPK)
+	public ProjectBU deleteProjectBU(long projectBUId)
 		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public ProjectBU fetchProjectBU(ProjectBUPK projectBUPK);
+	public ProjectBU fetchProjectBU(long projectBUId);
 
 	/**
 	* Returns the project b u with the matching UUID and company.
@@ -142,13 +145,12 @@ public interface ProjectBULocalService extends BaseLocalService,
 	/**
 	* Returns the project b u with the primary key.
 	*
-	* @param projectBUPK the primary key of the project b u
+	* @param projectBUId the primary key of the project b u
 	* @return the project b u
 	* @throws PortalException if a project b u with the primary key could not be found
 	*/
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public ProjectBU getProjectBU(ProjectBUPK projectBUPK)
-		throws PortalException;
+	public ProjectBU getProjectBU(long projectBUId) throws PortalException;
 
 	/**
 	* Returns the project b u with the matching UUID and company.
@@ -170,6 +172,10 @@ public interface ProjectBULocalService extends BaseLocalService,
 	*/
 	@Indexable(type = IndexableType.REINDEX)
 	public ProjectBU updateProjectBU(ProjectBU projectBU);
+
+	public ProjectBU updateProjectBU(long projectBUId, long projectId,
+		long businessUnitId, java.lang.String type)
+		throws NoSuchProjectBUException;
 
 	/**
 	* Returns the number of project b us.
@@ -238,6 +244,9 @@ public interface ProjectBULocalService extends BaseLocalService,
 	*/
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<ProjectBU> getProjectBUs(int start, int end);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<ProjectBU> getProjectBUs(java.lang.String type);
 
 	/**
 	* Returns the number of rows matching the dynamic query.

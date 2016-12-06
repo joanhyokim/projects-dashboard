@@ -16,6 +16,9 @@ package com.liferay.projects.dashboards.business.unit.model.impl;
 
 import aQute.bnd.annotation.ProviderType;
 
+import com.liferay.expando.kernel.model.ExpandoBridge;
+import com.liferay.expando.kernel.util.ExpandoBridgeFactoryUtil;
+
 import com.liferay.exportimport.kernel.lar.StagedModelType;
 
 import com.liferay.portal.kernel.bean.AutoEscapeBeanHandler;
@@ -23,6 +26,7 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.CacheModel;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.model.impl.BaseModelImpl;
+import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.UserLocalServiceUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.PortalUtil;
@@ -32,7 +36,6 @@ import com.liferay.portal.kernel.util.StringPool;
 
 import com.liferay.projects.dashboards.business.unit.model.ProjectBU;
 import com.liferay.projects.dashboards.business.unit.model.ProjectBUModel;
-import com.liferay.projects.dashboards.business.unit.service.persistence.ProjectBUPK;
 
 import java.io.Serializable;
 
@@ -66,30 +69,32 @@ public class ProjectBUModelImpl extends BaseModelImpl<ProjectBU>
 	public static final String TABLE_NAME = "PD_ProjectBU";
 	public static final Object[][] TABLE_COLUMNS = {
 			{ "uuid_", Types.VARCHAR },
-			{ "businessUnitId", Types.BIGINT },
-			{ "projectId", Types.BIGINT },
+			{ "projectBUId", Types.BIGINT },
 			{ "companyId", Types.BIGINT },
 			{ "userId", Types.BIGINT },
 			{ "userName", Types.VARCHAR },
 			{ "createDate", Types.TIMESTAMP },
 			{ "modifiedDate", Types.TIMESTAMP },
+			{ "businessUnitId", Types.BIGINT },
+			{ "projectId", Types.BIGINT },
 			{ "type_", Types.VARCHAR }
 		};
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP = new HashMap<String, Integer>();
 
 	static {
 		TABLE_COLUMNS_MAP.put("uuid_", Types.VARCHAR);
-		TABLE_COLUMNS_MAP.put("businessUnitId", Types.BIGINT);
-		TABLE_COLUMNS_MAP.put("projectId", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("projectBUId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("companyId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("userId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("userName", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("createDate", Types.TIMESTAMP);
 		TABLE_COLUMNS_MAP.put("modifiedDate", Types.TIMESTAMP);
+		TABLE_COLUMNS_MAP.put("businessUnitId", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("projectId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("type_", Types.VARCHAR);
 	}
 
-	public static final String TABLE_SQL_CREATE = "create table PD_ProjectBU (uuid_ VARCHAR(75) null,businessUnitId LONG not null,projectId LONG not null,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,type_ VARCHAR(75) null,primary key (businessUnitId, projectId))";
+	public static final String TABLE_SQL_CREATE = "create table PD_ProjectBU (uuid_ VARCHAR(75) null,projectBUId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,businessUnitId LONG,projectId LONG,type_ VARCHAR(75) null)";
 	public static final String TABLE_SQL_DROP = "drop table PD_ProjectBU";
 	public static final String ORDER_BY_JPQL = " ORDER BY projectBU.type ASC";
 	public static final String ORDER_BY_SQL = " ORDER BY PD_ProjectBU.type_ ASC";
@@ -115,24 +120,23 @@ public class ProjectBUModelImpl extends BaseModelImpl<ProjectBU>
 	}
 
 	@Override
-	public ProjectBUPK getPrimaryKey() {
-		return new ProjectBUPK(_businessUnitId, _projectId);
+	public long getPrimaryKey() {
+		return _projectBUId;
 	}
 
 	@Override
-	public void setPrimaryKey(ProjectBUPK primaryKey) {
-		setBusinessUnitId(primaryKey.businessUnitId);
-		setProjectId(primaryKey.projectId);
+	public void setPrimaryKey(long primaryKey) {
+		setProjectBUId(primaryKey);
 	}
 
 	@Override
 	public Serializable getPrimaryKeyObj() {
-		return new ProjectBUPK(_businessUnitId, _projectId);
+		return _projectBUId;
 	}
 
 	@Override
 	public void setPrimaryKeyObj(Serializable primaryKeyObj) {
-		setPrimaryKey((ProjectBUPK)primaryKeyObj);
+		setPrimaryKey(((Long)primaryKeyObj).longValue());
 	}
 
 	@Override
@@ -150,13 +154,14 @@ public class ProjectBUModelImpl extends BaseModelImpl<ProjectBU>
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
 		attributes.put("uuid", getUuid());
-		attributes.put("businessUnitId", getBusinessUnitId());
-		attributes.put("projectId", getProjectId());
+		attributes.put("projectBUId", getProjectBUId());
 		attributes.put("companyId", getCompanyId());
 		attributes.put("userId", getUserId());
 		attributes.put("userName", getUserName());
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
+		attributes.put("businessUnitId", getBusinessUnitId());
+		attributes.put("projectId", getProjectId());
 		attributes.put("type", getType());
 
 		attributes.put("entityCacheEnabled", isEntityCacheEnabled());
@@ -173,16 +178,10 @@ public class ProjectBUModelImpl extends BaseModelImpl<ProjectBU>
 			setUuid(uuid);
 		}
 
-		Long businessUnitId = (Long)attributes.get("businessUnitId");
+		Long projectBUId = (Long)attributes.get("projectBUId");
 
-		if (businessUnitId != null) {
-			setBusinessUnitId(businessUnitId);
-		}
-
-		Long projectId = (Long)attributes.get("projectId");
-
-		if (projectId != null) {
-			setProjectId(projectId);
+		if (projectBUId != null) {
+			setProjectBUId(projectBUId);
 		}
 
 		Long companyId = (Long)attributes.get("companyId");
@@ -213,6 +212,18 @@ public class ProjectBUModelImpl extends BaseModelImpl<ProjectBU>
 
 		if (modifiedDate != null) {
 			setModifiedDate(modifiedDate);
+		}
+
+		Long businessUnitId = (Long)attributes.get("businessUnitId");
+
+		if (businessUnitId != null) {
+			setBusinessUnitId(businessUnitId);
+		}
+
+		Long projectId = (Long)attributes.get("projectId");
+
+		if (projectId != null) {
+			setProjectId(projectId);
 		}
 
 		String type = (String)attributes.get("type");
@@ -246,23 +257,13 @@ public class ProjectBUModelImpl extends BaseModelImpl<ProjectBU>
 	}
 
 	@Override
-	public long getBusinessUnitId() {
-		return _businessUnitId;
+	public long getProjectBUId() {
+		return _projectBUId;
 	}
 
 	@Override
-	public void setBusinessUnitId(long businessUnitId) {
-		_businessUnitId = businessUnitId;
-	}
-
-	@Override
-	public long getProjectId() {
-		return _projectId;
-	}
-
-	@Override
-	public void setProjectId(long projectId) {
-		_projectId = projectId;
+	public void setProjectBUId(long projectBUId) {
+		_projectBUId = projectBUId;
 	}
 
 	@Override
@@ -355,6 +356,26 @@ public class ProjectBUModelImpl extends BaseModelImpl<ProjectBU>
 	}
 
 	@Override
+	public long getBusinessUnitId() {
+		return _businessUnitId;
+	}
+
+	@Override
+	public void setBusinessUnitId(long businessUnitId) {
+		_businessUnitId = businessUnitId;
+	}
+
+	@Override
+	public long getProjectId() {
+		return _projectId;
+	}
+
+	@Override
+	public void setProjectId(long projectId) {
+		_projectId = projectId;
+	}
+
+	@Override
 	public String getType() {
 		if (_type == null) {
 			return StringPool.BLANK;
@@ -390,6 +411,19 @@ public class ProjectBUModelImpl extends BaseModelImpl<ProjectBU>
 	}
 
 	@Override
+	public ExpandoBridge getExpandoBridge() {
+		return ExpandoBridgeFactoryUtil.getExpandoBridge(getCompanyId(),
+			ProjectBU.class.getName(), getPrimaryKey());
+	}
+
+	@Override
+	public void setExpandoBridgeAttributes(ServiceContext serviceContext) {
+		ExpandoBridge expandoBridge = getExpandoBridge();
+
+		expandoBridge.setAttributes(serviceContext);
+	}
+
+	@Override
 	public ProjectBU toEscapedModel() {
 		if (_escapedModel == null) {
 			_escapedModel = (ProjectBU)ProxyUtil.newProxyInstance(_classLoader,
@@ -404,13 +438,14 @@ public class ProjectBUModelImpl extends BaseModelImpl<ProjectBU>
 		ProjectBUImpl projectBUImpl = new ProjectBUImpl();
 
 		projectBUImpl.setUuid(getUuid());
-		projectBUImpl.setBusinessUnitId(getBusinessUnitId());
-		projectBUImpl.setProjectId(getProjectId());
+		projectBUImpl.setProjectBUId(getProjectBUId());
 		projectBUImpl.setCompanyId(getCompanyId());
 		projectBUImpl.setUserId(getUserId());
 		projectBUImpl.setUserName(getUserName());
 		projectBUImpl.setCreateDate(getCreateDate());
 		projectBUImpl.setModifiedDate(getModifiedDate());
+		projectBUImpl.setBusinessUnitId(getBusinessUnitId());
+		projectBUImpl.setProjectId(getProjectId());
 		projectBUImpl.setType(getType());
 
 		projectBUImpl.resetOriginalValues();
@@ -443,9 +478,9 @@ public class ProjectBUModelImpl extends BaseModelImpl<ProjectBU>
 
 		ProjectBU projectBU = (ProjectBU)obj;
 
-		ProjectBUPK primaryKey = projectBU.getPrimaryKey();
+		long primaryKey = projectBU.getPrimaryKey();
 
-		if (getPrimaryKey().equals(primaryKey)) {
+		if (getPrimaryKey() == primaryKey) {
 			return true;
 		}
 		else {
@@ -455,7 +490,7 @@ public class ProjectBUModelImpl extends BaseModelImpl<ProjectBU>
 
 	@Override
 	public int hashCode() {
-		return getPrimaryKey().hashCode();
+		return (int)getPrimaryKey();
 	}
 
 	@Override
@@ -489,8 +524,6 @@ public class ProjectBUModelImpl extends BaseModelImpl<ProjectBU>
 	public CacheModel<ProjectBU> toCacheModel() {
 		ProjectBUCacheModel projectBUCacheModel = new ProjectBUCacheModel();
 
-		projectBUCacheModel.projectBUPK = getPrimaryKey();
-
 		projectBUCacheModel.uuid = getUuid();
 
 		String uuid = projectBUCacheModel.uuid;
@@ -499,9 +532,7 @@ public class ProjectBUModelImpl extends BaseModelImpl<ProjectBU>
 			projectBUCacheModel.uuid = null;
 		}
 
-		projectBUCacheModel.businessUnitId = getBusinessUnitId();
-
-		projectBUCacheModel.projectId = getProjectId();
+		projectBUCacheModel.projectBUId = getProjectBUId();
 
 		projectBUCacheModel.companyId = getCompanyId();
 
@@ -533,6 +564,10 @@ public class ProjectBUModelImpl extends BaseModelImpl<ProjectBU>
 			projectBUCacheModel.modifiedDate = Long.MIN_VALUE;
 		}
 
+		projectBUCacheModel.businessUnitId = getBusinessUnitId();
+
+		projectBUCacheModel.projectId = getProjectId();
+
 		projectBUCacheModel.type = getType();
 
 		String type = projectBUCacheModel.type;
@@ -546,14 +581,12 @@ public class ProjectBUModelImpl extends BaseModelImpl<ProjectBU>
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(19);
+		StringBundler sb = new StringBundler(21);
 
 		sb.append("{uuid=");
 		sb.append(getUuid());
-		sb.append(", businessUnitId=");
-		sb.append(getBusinessUnitId());
-		sb.append(", projectId=");
-		sb.append(getProjectId());
+		sb.append(", projectBUId=");
+		sb.append(getProjectBUId());
 		sb.append(", companyId=");
 		sb.append(getCompanyId());
 		sb.append(", userId=");
@@ -564,6 +597,10 @@ public class ProjectBUModelImpl extends BaseModelImpl<ProjectBU>
 		sb.append(getCreateDate());
 		sb.append(", modifiedDate=");
 		sb.append(getModifiedDate());
+		sb.append(", businessUnitId=");
+		sb.append(getBusinessUnitId());
+		sb.append(", projectId=");
+		sb.append(getProjectId());
 		sb.append(", type=");
 		sb.append(getType());
 		sb.append("}");
@@ -573,7 +610,7 @@ public class ProjectBUModelImpl extends BaseModelImpl<ProjectBU>
 
 	@Override
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(31);
+		StringBundler sb = new StringBundler(34);
 
 		sb.append("<model><model-name>");
 		sb.append(
@@ -585,12 +622,8 @@ public class ProjectBUModelImpl extends BaseModelImpl<ProjectBU>
 		sb.append(getUuid());
 		sb.append("]]></column-value></column>");
 		sb.append(
-			"<column><column-name>businessUnitId</column-name><column-value><![CDATA[");
-		sb.append(getBusinessUnitId());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>projectId</column-name><column-value><![CDATA[");
-		sb.append(getProjectId());
+			"<column><column-name>projectBUId</column-name><column-value><![CDATA[");
+		sb.append(getProjectBUId());
 		sb.append("]]></column-value></column>");
 		sb.append(
 			"<column><column-name>companyId</column-name><column-value><![CDATA[");
@@ -613,6 +646,14 @@ public class ProjectBUModelImpl extends BaseModelImpl<ProjectBU>
 		sb.append(getModifiedDate());
 		sb.append("]]></column-value></column>");
 		sb.append(
+			"<column><column-name>businessUnitId</column-name><column-value><![CDATA[");
+		sb.append(getBusinessUnitId());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>projectId</column-name><column-value><![CDATA[");
+		sb.append(getProjectId());
+		sb.append("]]></column-value></column>");
+		sb.append(
 			"<column><column-name>type</column-name><column-value><![CDATA[");
 		sb.append(getType());
 		sb.append("]]></column-value></column>");
@@ -628,8 +669,7 @@ public class ProjectBUModelImpl extends BaseModelImpl<ProjectBU>
 		};
 	private String _uuid;
 	private String _originalUuid;
-	private long _businessUnitId;
-	private long _projectId;
+	private long _projectBUId;
 	private long _companyId;
 	private long _originalCompanyId;
 	private boolean _setOriginalCompanyId;
@@ -638,6 +678,8 @@ public class ProjectBUModelImpl extends BaseModelImpl<ProjectBU>
 	private Date _createDate;
 	private Date _modifiedDate;
 	private boolean _setModifiedDate;
+	private long _businessUnitId;
+	private long _projectId;
 	private String _type;
 	private String _originalType;
 	private long _columnBitmask;

@@ -83,6 +83,12 @@ public class BusinessUnitLocalServiceWrapper implements BusinessUnitLocalService
 		return _businessUnitLocalService.addBusinessUnit(businessUnit);
 	}
 
+	@Override
+	public com.liferay.projects.dashboards.business.unit.model.BusinessUnit addBusinessUnit(
+		java.lang.String name) {
+		return _businessUnitLocalService.addBusinessUnit(name);
+	}
+
 	/**
 	* Creates a new business unit with the primary key. Does not add the business unit to the database.
 	*
@@ -171,6 +177,13 @@ public class BusinessUnitLocalServiceWrapper implements BusinessUnitLocalService
 			companyId);
 	}
 
+	@Override
+	public com.liferay.projects.dashboards.business.unit.model.BusinessUnit getDocumentationProject(
+		java.lang.String name)
+		throws com.liferay.projects.dashboards.business.unit.exception.NoSuchBusinessUnitException {
+		return _businessUnitLocalService.getDocumentationProject(name);
+	}
+
 	/**
 	* Updates the business unit in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
 	*
@@ -181,6 +194,13 @@ public class BusinessUnitLocalServiceWrapper implements BusinessUnitLocalService
 	public com.liferay.projects.dashboards.business.unit.model.BusinessUnit updateBusinessUnit(
 		com.liferay.projects.dashboards.business.unit.model.BusinessUnit businessUnit) {
 		return _businessUnitLocalService.updateBusinessUnit(businessUnit);
+	}
+
+	@Override
+	public com.liferay.projects.dashboards.business.unit.model.BusinessUnit updateBusinessUnit(
+		long businessUnitId, java.lang.String name)
+		throws com.liferay.projects.dashboards.business.unit.exception.NoSuchBusinessUnitException {
+		return _businessUnitLocalService.updateBusinessUnit(businessUnitId, name);
 	}
 
 	/**

@@ -233,17 +233,17 @@ public class ProjectBUUtil {
 	/**
 	* Returns the project b us before and after the current project b u in the ordered set where uuid = &#63;.
 	*
-	* @param projectBUPK the primary key of the current project b u
+	* @param projectBUId the primary key of the current project b u
 	* @param uuid the uuid
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the previous, current, and next project b u
 	* @throws NoSuchProjectBUException if a project b u with the primary key could not be found
 	*/
-	public static ProjectBU[] findByUuid_PrevAndNext(ProjectBUPK projectBUPK,
+	public static ProjectBU[] findByUuid_PrevAndNext(long projectBUId,
 		java.lang.String uuid, OrderByComparator<ProjectBU> orderByComparator)
 		throws com.liferay.projects.dashboards.business.unit.exception.NoSuchProjectBUException {
 		return getPersistence()
-				   .findByUuid_PrevAndNext(projectBUPK, uuid, orderByComparator);
+				   .findByUuid_PrevAndNext(projectBUId, uuid, orderByComparator);
 	}
 
 	/**
@@ -403,19 +403,19 @@ public class ProjectBUUtil {
 	/**
 	* Returns the project b us before and after the current project b u in the ordered set where uuid = &#63; and companyId = &#63;.
 	*
-	* @param projectBUPK the primary key of the current project b u
+	* @param projectBUId the primary key of the current project b u
 	* @param uuid the uuid
 	* @param companyId the company ID
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the previous, current, and next project b u
 	* @throws NoSuchProjectBUException if a project b u with the primary key could not be found
 	*/
-	public static ProjectBU[] findByUuid_C_PrevAndNext(
-		ProjectBUPK projectBUPK, java.lang.String uuid, long companyId,
+	public static ProjectBU[] findByUuid_C_PrevAndNext(long projectBUId,
+		java.lang.String uuid, long companyId,
 		OrderByComparator<ProjectBU> orderByComparator)
 		throws com.liferay.projects.dashboards.business.unit.exception.NoSuchProjectBUException {
 		return getPersistence()
-				   .findByUuid_C_PrevAndNext(projectBUPK, uuid, companyId,
+				   .findByUuid_C_PrevAndNext(projectBUId, uuid, companyId,
 			orderByComparator);
 	}
 
@@ -441,48 +441,147 @@ public class ProjectBUUtil {
 	}
 
 	/**
-	* Returns the project b u where type = &#63; or throws a {@link NoSuchProjectBUException} if it could not be found.
+	* Returns all the project b us where type = &#63;.
 	*
 	* @param type the type
-	* @return the matching project b u
-	* @throws NoSuchProjectBUException if a matching project b u could not be found
+	* @return the matching project b us
 	*/
-	public static ProjectBU findByType(java.lang.String type)
-		throws com.liferay.projects.dashboards.business.unit.exception.NoSuchProjectBUException {
+	public static List<ProjectBU> findByType(java.lang.String type) {
 		return getPersistence().findByType(type);
 	}
 
 	/**
-	* Returns the project b u where type = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	* Returns a range of all the project b us where type = &#63;.
+	*
+	* <p>
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link ProjectBUModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	* </p>
 	*
 	* @param type the type
-	* @return the matching project b u, or <code>null</code> if a matching project b u could not be found
+	* @param start the lower bound of the range of project b us
+	* @param end the upper bound of the range of project b us (not inclusive)
+	* @return the range of matching project b us
 	*/
-	public static ProjectBU fetchByType(java.lang.String type) {
-		return getPersistence().fetchByType(type);
+	public static List<ProjectBU> findByType(java.lang.String type, int start,
+		int end) {
+		return getPersistence().findByType(type, start, end);
 	}
 
 	/**
-	* Returns the project b u where type = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	* Returns an ordered range of all the project b us where type = &#63;.
+	*
+	* <p>
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link ProjectBUModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	* </p>
 	*
 	* @param type the type
+	* @param start the lower bound of the range of project b us
+	* @param end the upper bound of the range of project b us (not inclusive)
+	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	* @return the ordered range of matching project b us
+	*/
+	public static List<ProjectBU> findByType(java.lang.String type, int start,
+		int end, OrderByComparator<ProjectBU> orderByComparator) {
+		return getPersistence().findByType(type, start, end, orderByComparator);
+	}
+
+	/**
+	* Returns an ordered range of all the project b us where type = &#63;.
+	*
+	* <p>
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link ProjectBUModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	* </p>
+	*
+	* @param type the type
+	* @param start the lower bound of the range of project b us
+	* @param end the upper bound of the range of project b us (not inclusive)
+	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	* @param retrieveFromCache whether to retrieve from the finder cache
-	* @return the matching project b u, or <code>null</code> if a matching project b u could not be found
+	* @return the ordered range of matching project b us
 	*/
-	public static ProjectBU fetchByType(java.lang.String type,
+	public static List<ProjectBU> findByType(java.lang.String type, int start,
+		int end, OrderByComparator<ProjectBU> orderByComparator,
 		boolean retrieveFromCache) {
-		return getPersistence().fetchByType(type, retrieveFromCache);
+		return getPersistence()
+				   .findByType(type, start, end, orderByComparator,
+			retrieveFromCache);
 	}
 
 	/**
-	* Removes the project b u where type = &#63; from the database.
+	* Returns the first project b u in the ordered set where type = &#63;.
 	*
 	* @param type the type
-	* @return the project b u that was removed
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the first matching project b u
+	* @throws NoSuchProjectBUException if a matching project b u could not be found
 	*/
-	public static ProjectBU removeByType(java.lang.String type)
+	public static ProjectBU findByType_First(java.lang.String type,
+		OrderByComparator<ProjectBU> orderByComparator)
 		throws com.liferay.projects.dashboards.business.unit.exception.NoSuchProjectBUException {
-		return getPersistence().removeByType(type);
+		return getPersistence().findByType_First(type, orderByComparator);
+	}
+
+	/**
+	* Returns the first project b u in the ordered set where type = &#63;.
+	*
+	* @param type the type
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the first matching project b u, or <code>null</code> if a matching project b u could not be found
+	*/
+	public static ProjectBU fetchByType_First(java.lang.String type,
+		OrderByComparator<ProjectBU> orderByComparator) {
+		return getPersistence().fetchByType_First(type, orderByComparator);
+	}
+
+	/**
+	* Returns the last project b u in the ordered set where type = &#63;.
+	*
+	* @param type the type
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the last matching project b u
+	* @throws NoSuchProjectBUException if a matching project b u could not be found
+	*/
+	public static ProjectBU findByType_Last(java.lang.String type,
+		OrderByComparator<ProjectBU> orderByComparator)
+		throws com.liferay.projects.dashboards.business.unit.exception.NoSuchProjectBUException {
+		return getPersistence().findByType_Last(type, orderByComparator);
+	}
+
+	/**
+	* Returns the last project b u in the ordered set where type = &#63;.
+	*
+	* @param type the type
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the last matching project b u, or <code>null</code> if a matching project b u could not be found
+	*/
+	public static ProjectBU fetchByType_Last(java.lang.String type,
+		OrderByComparator<ProjectBU> orderByComparator) {
+		return getPersistence().fetchByType_Last(type, orderByComparator);
+	}
+
+	/**
+	* Returns the project b us before and after the current project b u in the ordered set where type = &#63;.
+	*
+	* @param projectBUId the primary key of the current project b u
+	* @param type the type
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the previous, current, and next project b u
+	* @throws NoSuchProjectBUException if a project b u with the primary key could not be found
+	*/
+	public static ProjectBU[] findByType_PrevAndNext(long projectBUId,
+		java.lang.String type, OrderByComparator<ProjectBU> orderByComparator)
+		throws com.liferay.projects.dashboards.business.unit.exception.NoSuchProjectBUException {
+		return getPersistence()
+				   .findByType_PrevAndNext(projectBUId, type, orderByComparator);
+	}
+
+	/**
+	* Removes all the project b us where type = &#63; from the database.
+	*
+	* @param type the type
+	*/
+	public static void removeByType(java.lang.String type) {
+		getPersistence().removeByType(type);
 	}
 
 	/**
@@ -516,23 +615,23 @@ public class ProjectBUUtil {
 	/**
 	* Creates a new project b u with the primary key. Does not add the project b u to the database.
 	*
-	* @param projectBUPK the primary key for the new project b u
+	* @param projectBUId the primary key for the new project b u
 	* @return the new project b u
 	*/
-	public static ProjectBU create(ProjectBUPK projectBUPK) {
-		return getPersistence().create(projectBUPK);
+	public static ProjectBU create(long projectBUId) {
+		return getPersistence().create(projectBUId);
 	}
 
 	/**
 	* Removes the project b u with the primary key from the database. Also notifies the appropriate model listeners.
 	*
-	* @param projectBUPK the primary key of the project b u
+	* @param projectBUId the primary key of the project b u
 	* @return the project b u that was removed
 	* @throws NoSuchProjectBUException if a project b u with the primary key could not be found
 	*/
-	public static ProjectBU remove(ProjectBUPK projectBUPK)
+	public static ProjectBU remove(long projectBUId)
 		throws com.liferay.projects.dashboards.business.unit.exception.NoSuchProjectBUException {
-		return getPersistence().remove(projectBUPK);
+		return getPersistence().remove(projectBUId);
 	}
 
 	public static ProjectBU updateImpl(ProjectBU projectBU) {
@@ -542,23 +641,23 @@ public class ProjectBUUtil {
 	/**
 	* Returns the project b u with the primary key or throws a {@link NoSuchProjectBUException} if it could not be found.
 	*
-	* @param projectBUPK the primary key of the project b u
+	* @param projectBUId the primary key of the project b u
 	* @return the project b u
 	* @throws NoSuchProjectBUException if a project b u with the primary key could not be found
 	*/
-	public static ProjectBU findByPrimaryKey(ProjectBUPK projectBUPK)
+	public static ProjectBU findByPrimaryKey(long projectBUId)
 		throws com.liferay.projects.dashboards.business.unit.exception.NoSuchProjectBUException {
-		return getPersistence().findByPrimaryKey(projectBUPK);
+		return getPersistence().findByPrimaryKey(projectBUId);
 	}
 
 	/**
 	* Returns the project b u with the primary key or returns <code>null</code> if it could not be found.
 	*
-	* @param projectBUPK the primary key of the project b u
+	* @param projectBUId the primary key of the project b u
 	* @return the project b u, or <code>null</code> if a project b u with the primary key could not be found
 	*/
-	public static ProjectBU fetchByPrimaryKey(ProjectBUPK projectBUPK) {
-		return getPersistence().fetchByPrimaryKey(projectBUPK);
+	public static ProjectBU fetchByPrimaryKey(long projectBUId) {
+		return getPersistence().fetchByPrimaryKey(projectBUId);
 	}
 
 	public static java.util.Map<java.io.Serializable, ProjectBU> fetchByPrimaryKeys(

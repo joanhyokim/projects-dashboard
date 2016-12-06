@@ -22,7 +22,6 @@ import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
 
 import com.liferay.projects.dashboards.business.unit.model.ProjectBU;
-import com.liferay.projects.dashboards.business.unit.service.persistence.ProjectBUPK;
 
 import java.io.Externalizable;
 import java.io.IOException;
@@ -53,7 +52,7 @@ public class ProjectBUCacheModel implements CacheModel<ProjectBU>,
 
 		ProjectBUCacheModel projectBUCacheModel = (ProjectBUCacheModel)obj;
 
-		if (projectBUPK.equals(projectBUCacheModel.projectBUPK)) {
+		if (projectBUId == projectBUCacheModel.projectBUId) {
 			return true;
 		}
 
@@ -62,19 +61,17 @@ public class ProjectBUCacheModel implements CacheModel<ProjectBU>,
 
 	@Override
 	public int hashCode() {
-		return HashUtil.hash(0, projectBUPK);
+		return HashUtil.hash(0, projectBUId);
 	}
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(19);
+		StringBundler sb = new StringBundler(21);
 
 		sb.append("{uuid=");
 		sb.append(uuid);
-		sb.append(", businessUnitId=");
-		sb.append(businessUnitId);
-		sb.append(", projectId=");
-		sb.append(projectId);
+		sb.append(", projectBUId=");
+		sb.append(projectBUId);
 		sb.append(", companyId=");
 		sb.append(companyId);
 		sb.append(", userId=");
@@ -85,6 +82,10 @@ public class ProjectBUCacheModel implements CacheModel<ProjectBU>,
 		sb.append(createDate);
 		sb.append(", modifiedDate=");
 		sb.append(modifiedDate);
+		sb.append(", businessUnitId=");
+		sb.append(businessUnitId);
+		sb.append(", projectId=");
+		sb.append(projectId);
 		sb.append(", type=");
 		sb.append(type);
 		sb.append("}");
@@ -103,8 +104,7 @@ public class ProjectBUCacheModel implements CacheModel<ProjectBU>,
 			projectBUImpl.setUuid(uuid);
 		}
 
-		projectBUImpl.setBusinessUnitId(businessUnitId);
-		projectBUImpl.setProjectId(projectId);
+		projectBUImpl.setProjectBUId(projectBUId);
 		projectBUImpl.setCompanyId(companyId);
 		projectBUImpl.setUserId(userId);
 
@@ -129,6 +129,9 @@ public class ProjectBUCacheModel implements CacheModel<ProjectBU>,
 			projectBUImpl.setModifiedDate(new Date(modifiedDate));
 		}
 
+		projectBUImpl.setBusinessUnitId(businessUnitId);
+		projectBUImpl.setProjectId(projectId);
+
 		if (type == null) {
 			projectBUImpl.setType(StringPool.BLANK);
 		}
@@ -145,9 +148,7 @@ public class ProjectBUCacheModel implements CacheModel<ProjectBU>,
 	public void readExternal(ObjectInput objectInput) throws IOException {
 		uuid = objectInput.readUTF();
 
-		businessUnitId = objectInput.readLong();
-
-		projectId = objectInput.readLong();
+		projectBUId = objectInput.readLong();
 
 		companyId = objectInput.readLong();
 
@@ -155,9 +156,11 @@ public class ProjectBUCacheModel implements CacheModel<ProjectBU>,
 		userName = objectInput.readUTF();
 		createDate = objectInput.readLong();
 		modifiedDate = objectInput.readLong();
-		type = objectInput.readUTF();
 
-		projectBUPK = new ProjectBUPK(businessUnitId, projectId);
+		businessUnitId = objectInput.readLong();
+
+		projectId = objectInput.readLong();
+		type = objectInput.readUTF();
 	}
 
 	@Override
@@ -170,9 +173,7 @@ public class ProjectBUCacheModel implements CacheModel<ProjectBU>,
 			objectOutput.writeUTF(uuid);
 		}
 
-		objectOutput.writeLong(businessUnitId);
-
-		objectOutput.writeLong(projectId);
+		objectOutput.writeLong(projectBUId);
 
 		objectOutput.writeLong(companyId);
 
@@ -188,6 +189,10 @@ public class ProjectBUCacheModel implements CacheModel<ProjectBU>,
 		objectOutput.writeLong(createDate);
 		objectOutput.writeLong(modifiedDate);
 
+		objectOutput.writeLong(businessUnitId);
+
+		objectOutput.writeLong(projectId);
+
 		if (type == null) {
 			objectOutput.writeUTF(StringPool.BLANK);
 		}
@@ -197,13 +202,13 @@ public class ProjectBUCacheModel implements CacheModel<ProjectBU>,
 	}
 
 	public String uuid;
-	public long businessUnitId;
-	public long projectId;
+	public long projectBUId;
 	public long companyId;
 	public long userId;
 	public String userName;
 	public long createDate;
 	public long modifiedDate;
+	public long businessUnitId;
+	public long projectId;
 	public String type;
-	public transient ProjectBUPK projectBUPK;
 }

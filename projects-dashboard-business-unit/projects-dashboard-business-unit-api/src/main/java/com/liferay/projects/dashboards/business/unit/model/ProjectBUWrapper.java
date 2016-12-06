@@ -60,13 +60,14 @@ public class ProjectBUWrapper implements ProjectBU, ModelWrapper<ProjectBU> {
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
 		attributes.put("uuid", getUuid());
-		attributes.put("businessUnitId", getBusinessUnitId());
-		attributes.put("projectId", getProjectId());
+		attributes.put("projectBUId", getProjectBUId());
 		attributes.put("companyId", getCompanyId());
 		attributes.put("userId", getUserId());
 		attributes.put("userName", getUserName());
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
+		attributes.put("businessUnitId", getBusinessUnitId());
+		attributes.put("projectId", getProjectId());
 		attributes.put("type", getType());
 
 		return attributes;
@@ -80,16 +81,10 @@ public class ProjectBUWrapper implements ProjectBU, ModelWrapper<ProjectBU> {
 			setUuid(uuid);
 		}
 
-		Long businessUnitId = (Long)attributes.get("businessUnitId");
+		Long projectBUId = (Long)attributes.get("projectBUId");
 
-		if (businessUnitId != null) {
-			setBusinessUnitId(businessUnitId);
-		}
-
-		Long projectId = (Long)attributes.get("projectId");
-
-		if (projectId != null) {
-			setProjectId(projectId);
+		if (projectBUId != null) {
+			setProjectBUId(projectBUId);
 		}
 
 		Long companyId = (Long)attributes.get("companyId");
@@ -120,6 +115,18 @@ public class ProjectBUWrapper implements ProjectBU, ModelWrapper<ProjectBU> {
 
 		if (modifiedDate != null) {
 			setModifiedDate(modifiedDate);
+		}
+
+		Long businessUnitId = (Long)attributes.get("businessUnitId");
+
+		if (businessUnitId != null) {
+			setBusinessUnitId(businessUnitId);
+		}
+
+		Long projectId = (Long)attributes.get("projectId");
+
+		if (projectId != null) {
+			setProjectId(projectId);
 		}
 
 		String type = (String)attributes.get("type");
@@ -162,16 +169,6 @@ public class ProjectBUWrapper implements ProjectBU, ModelWrapper<ProjectBU> {
 	@Override
 	public com.liferay.portal.kernel.model.CacheModel<ProjectBU> toCacheModel() {
 		return _projectBU.toCacheModel();
-	}
-
-	/**
-	* Returns the primary key of this project b u.
-	*
-	* @return the primary key of this project b u
-	*/
-	@Override
-	public com.liferay.projects.dashboards.business.unit.service.persistence.ProjectBUPK getPrimaryKey() {
-		return _projectBU.getPrimaryKey();
 	}
 
 	@Override
@@ -285,6 +282,26 @@ public class ProjectBUWrapper implements ProjectBU, ModelWrapper<ProjectBU> {
 	}
 
 	/**
+	* Returns the primary key of this project b u.
+	*
+	* @return the primary key of this project b u
+	*/
+	@Override
+	public long getPrimaryKey() {
+		return _projectBU.getPrimaryKey();
+	}
+
+	/**
+	* Returns the project b u ID of this project b u.
+	*
+	* @return the project b u ID of this project b u
+	*/
+	@Override
+	public long getProjectBUId() {
+		return _projectBU.getProjectBUId();
+	}
+
+	/**
 	* Returns the project ID of this project b u.
 	*
 	* @return the project ID of this project b u
@@ -381,14 +398,23 @@ public class ProjectBUWrapper implements ProjectBU, ModelWrapper<ProjectBU> {
 	* @param primaryKey the primary key of this project b u
 	*/
 	@Override
-	public void setPrimaryKey(
-		com.liferay.projects.dashboards.business.unit.service.persistence.ProjectBUPK primaryKey) {
+	public void setPrimaryKey(long primaryKey) {
 		_projectBU.setPrimaryKey(primaryKey);
 	}
 
 	@Override
 	public void setPrimaryKeyObj(Serializable primaryKeyObj) {
 		_projectBU.setPrimaryKeyObj(primaryKeyObj);
+	}
+
+	/**
+	* Sets the project b u ID of this project b u.
+	*
+	* @param projectBUId the project b u ID of this project b u
+	*/
+	@Override
+	public void setProjectBUId(long projectBUId) {
+		_projectBU.setProjectBUId(projectBUId);
 	}
 
 	/**

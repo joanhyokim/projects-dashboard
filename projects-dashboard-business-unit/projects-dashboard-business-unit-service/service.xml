@@ -30,7 +30,7 @@
 
 		<!-- Finder methods -->
 
-		<finder name="Name">
+		<finder name="Name" return-type="BusinessUnit">
 			<finder-column name="name" />
 		</finder>
 	</entity>
@@ -38,8 +38,7 @@
 
 		<!-- PK fields -->
 
-		<column name="businessUnitId" primary="true" type="long" />
-		<column name="projectId" primary="true" type="long" />
+		<column name="projectBUId" type="long" primary="true" />
 
 		<!-- Audit fields -->
 
@@ -51,6 +50,8 @@
 
 		<!-- Other fields -->
 
+		<column name="businessUnitId" type="long" />
+		<column name="projectId"  type="long" />
 		<column name="type" type="String" />
 
 		<!-- Order -->
@@ -61,7 +62,7 @@
 
 		<!-- Finder methods -->
 
-		<finder name="Type">
+		<finder name="Type" return-type="Collection">
 			<finder-column name="type" />
 		</finder>
 	</entity>
