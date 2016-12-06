@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE service-builder PUBLIC "-//Liferay//DTD Service Builder 7.0.0//EN" "http://www.liferay.com/dtd/liferay-service-builder_7_0_0.dtd">
 
-<service-builder auto-namespace-tables="true" package-path="com.liferay.projects.dashboard">
+<service-builder auto-namespace-tables="true" package-path="com.liferay.projects.dashboard.problem">
 	<author>Howie Chou</author>
 	<namespace>PD</namespace>
 	<entity local-service="true" name="Problem" remote-service="false">
