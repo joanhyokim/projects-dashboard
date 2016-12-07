@@ -1,4 +1,4 @@
-Bundle-Name: Projects DashBoard Problem API
+Bundle-Name: Liferay Projects Dashboard Problem API
 Bundle-SymbolicName: com.liferay.projects.dashboard.problem.api
 Bundle-Version: 1.0.0
 Export-Package:\
