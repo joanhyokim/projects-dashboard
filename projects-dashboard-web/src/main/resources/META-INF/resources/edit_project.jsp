@@ -30,7 +30,6 @@ Project project = ProjectLocalServiceUtil.fetchProject(projectId);
 		<portlet:param name="mvcRenderCommandName" value="/edit_business_unit" />
 	</portlet:actionURL>
 
-
 	<aui:form action="<%= editProjectURL %>" method="post" name="fm">
 		<aui:input name="redirect" type="hidden" value="<%= redirect %>" />
 		<aui:input name="projectId" type="hidden" value="<%= String.valueOf(projectId) %>" />
@@ -58,7 +57,6 @@ Project project = ProjectLocalServiceUtil.fetchProject(projectId);
 					<aui:input name="health" />
 
 					<aui:input name="status" />
-
 				</aui:fieldset>
 			</aui:fieldset-group>
 		</div>

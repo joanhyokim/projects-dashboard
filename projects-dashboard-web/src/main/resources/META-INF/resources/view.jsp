@@ -49,10 +49,9 @@ portletURL.setParameter("mvcRenderCommandName", "/view");
 				List<BusinessUnit> businessUnits = BusinessUnitLocalServiceUtil.getBusinessUnits(-1, -1);
 
 				for (BusinessUnit businessUnit : businessUnits) {
-
 				%>
 
-					<li<%= (businessUnit.getBusinessUnitId() == businessUnitId) ? " class=\"active\"" : StringPool.BLANK%>>
+					<li<%= (businessUnit.getBusinessUnitId() == businessUnitId) ? " class=\"active\"" : StringPool.BLANK %>>
 						<liferay-portlet:renderURL var="viewURL">
 							<portlet:param name="mvcRenderCommandName" value="/view" />
 							<portlet:param name="businessUnitId" value="<%= String.valueOf(businessUnit.getBusinessUnitId()) %>" />
@@ -67,6 +66,7 @@ portletURL.setParameter("mvcRenderCommandName", "/view");
 
 			</ul>
 		</div>
+
 		<div class="col-md-9">
 			<h3>
 				Projects
@@ -83,7 +83,6 @@ portletURL.setParameter("mvcRenderCommandName", "/view");
 					url="<%= editProjectURL %>"
 				/>
 			</h3>
-
 
 			<div class="main-content-body">
 				<liferay-ui:search-container

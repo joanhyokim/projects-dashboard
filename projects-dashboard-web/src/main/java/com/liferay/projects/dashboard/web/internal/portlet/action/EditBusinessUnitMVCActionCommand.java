@@ -21,11 +21,12 @@ import com.liferay.portal.kernel.service.ServiceContextFactory;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.projects.dashboard.business.unit.service.BusinessUnitLocalService;
 import com.liferay.projects.dashboard.web.internal.constants.ProjectsDashboardPortletKeys;
-import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Reference;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
+
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Yury Butrymovich
@@ -37,8 +38,7 @@ import javax.portlet.ActionResponse;
 	},
 	service = MVCActionCommand.class
 )
-public class EditBusinessUnitMVCActionCommand
-	extends BaseMVCActionCommand {
+public class EditBusinessUnitMVCActionCommand extends BaseMVCActionCommand {
 
 	@Override
 	protected void doProcessAction(
@@ -54,7 +54,8 @@ public class EditBusinessUnitMVCActionCommand
 			actionRequest);
 
 		if (businessUnitId > 0) {
-			_buBusinessUnitLocalService.updateBusinessUnit(businessUnitId, name);
+			_buBusinessUnitLocalService.updateBusinessUnit(
+				businessUnitId, name);
 		}
 		else {
 			_buBusinessUnitLocalService.addBusinessUnit(name);
