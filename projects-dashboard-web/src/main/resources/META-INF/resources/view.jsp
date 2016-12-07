@@ -118,7 +118,26 @@ portletURL.setParameter("mvcRenderCommandName", "/view");
 						<liferay-ui:search-container-column-text
 							name="!"
 						>
-							<%= project.getPriority() %>
+
+							<%
+							String label = "";
+							String labelCssClassName = "";
+
+							if (project.getPriority() == ProjectPriorityConstants.CRITICAL) {
+								label = "!!";
+								labelCssClassName = "label-danger";
+							}
+							else if (project.getPriority() == ProjectPriorityConstants.MAJOR) {
+								label = "!";
+								labelCssClassName = "label-danger";
+							}
+							else if (project.getPriority() == ProjectPriorityConstants.MINOR) {
+								label = "#";
+								labelCssClassName = "label-default";
+							}
+							%>
+
+							<span class="label <%= labelCssClassName %>"><%= label %></span>
 						</liferay-ui:search-container-column-text>
 
 						<liferay-ui:search-container-column-text
@@ -135,13 +154,53 @@ portletURL.setParameter("mvcRenderCommandName", "/view");
 						<liferay-ui:search-container-column-text
 							name="Status"
 						>
-							<%= project.getStatus() %>
+
+							<%
+							String labelCssClassName = "";
+
+							if (project.getStatus() == ProjectStatusConstants.OPEN) {
+								labelCssClassName = "label-default";
+							}
+							else if (project.getStatus() == ProjectStatusConstants.IN_PROGRESS) {
+								labelCssClassName = "label-warning";
+							}
+							else if (project.getStatus() == ProjectStatusConstants.RELEASED) {
+								labelCssClassName = "label-success";
+							}
+							else if (project.getStatus() == ProjectStatusConstants.DISCARDED) {
+								labelCssClassName = "label-danger";
+							}
+							else if (project.getStatus() == ProjectStatusConstants.ON_HOLD) {
+								labelCssClassName = "label-danger";
+							}
+							%>
+
+							<span class="label <%= labelCssClassName %>">
+								<%= ProjectStatusConstants.toLabel(project.getStatus()) %>
+							</span>
 						</liferay-ui:search-container-column-text>
 
 						<liferay-ui:search-container-column-text
 							name="Health"
 						>
-							<%= project.getHealth() %>
+
+							<%
+							String labelCssClassName = "";
+
+							if (project.getHealth() == ProjectHealthConstants.RED) {
+								labelCssClassName = "label-danger";
+							}
+							else if (project.getHealth() == ProjectHealthConstants.YELLOW) {
+								labelCssClassName = "label-warning";
+							}
+							else if (project.getHealth() == ProjectHealthConstants.GREEN) {
+								labelCssClassName = "label-success";
+							}
+							%>
+
+							<span class="label <%= labelCssClassName %>">
+								<%= ProjectHealthConstants.toLabel(project.getHealth()) %>
+							</span>
 						</liferay-ui:search-container-column-text>
 					</liferay-ui:search-container-row>
 
