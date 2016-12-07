@@ -9,5 +9,6 @@ dependencies {
 	provided group: "javax.servlet.jsp", name: "javax.servlet.jsp-api", version: "2.3.1"
 	provided group: "org.osgi", name: "org.osgi.compendium", version: "5.0.0"
 	provided project(":private:apps:projects-dashboard:projects-dashboard-business-unit:projects-dashboard-business-unit-api")
+	provided project(":private:apps:projects-dashboard:projects-dashboard-problem:projects-dashboard-problem-api")
 	provided project(":private:apps:projects-dashboard:projects-dashboard-project:projects-dashboard-project-api")
 }
