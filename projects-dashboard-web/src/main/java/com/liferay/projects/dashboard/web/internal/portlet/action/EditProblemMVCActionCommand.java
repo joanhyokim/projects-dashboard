@@ -16,9 +16,9 @@ package com.liferay.projects.dashboard.web.internal.portlet.action;
 
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
-import com.liferay.portal.kernel.service.ServiceContext;
-import com.liferay.portal.kernel.service.ServiceContextFactory;
+import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.projects.dashboard.problem.service.ProblemLocalService;
 import com.liferay.projects.dashboard.web.internal.constants.ProjectsDashboardPortletKeys;
 
@@ -47,23 +47,26 @@ public class EditProblemMVCActionCommand extends BaseMVCActionCommand {
 			ActionRequest actionRequest, ActionResponse actionResponse)
 		throws Exception {
 
+		ThemeDisplay themeDisplay = (ThemeDisplay)actionRequest.getAttribute(
+			WebKeys.THEME_DISPLAY);
+
 		long problemId = ParamUtil.getLong(actionRequest, "problemId");
+
 		long projectId = ParamUtil.getLong(actionRequest, "projectId");
+
 		int type = ParamUtil.getInteger(actionRequest, "type");
 		String description = ParamUtil.getString(actionRequest, "description");
 		int status = ParamUtil.getInteger(actionRequest, "status");
 		Date statusDate = ParamUtil.getDate(actionRequest, "statusDate", null);
 
-		ServiceContext serviceContext = ServiceContextFactory.getInstance(
-			actionRequest);
-
 		if (problemId > 0) {
-			_problemLocalService.updateProblem(problemId, projectId, type, 
-				description, status, statusDate);
+			_problemLocalService.updateProblem(
+				problemId, projectId, type, description, status, statusDate);
 		}
 		else {
-			_problemLocalService.addProblem(projectId, type, 
-				description, status, statusDate);
+			_problemLocalService.addProblem(
+				themeDisplay.getUserId(), projectId, type, description, status,
+				statusDate);
 		}
 	}
 
