@@ -26,8 +26,8 @@ Project project = ProjectLocalServiceUtil.fetchProject(projectId);
 %>
 
 <div class="edit-project">
-	<portlet:actionURL name="/edit_business_unit" var="editProjectURL">
-		<portlet:param name="mvcRenderCommandName" value="/edit_business_unit" />
+	<portlet:actionURL name="/edit_project" var="editProjectURL">
+		<portlet:param name="mvcRenderCommandName" value="/edit_project" />
 	</portlet:actionURL>
 
 	<aui:form action="<%= editProjectURL %>" method="post" name="fm">
