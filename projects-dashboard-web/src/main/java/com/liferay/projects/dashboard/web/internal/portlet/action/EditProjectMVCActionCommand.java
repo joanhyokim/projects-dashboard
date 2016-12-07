@@ -20,6 +20,7 @@ import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.ServiceContextFactory;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.PortalUtil;
+import com.liferay.projects.dashboard.project.model.Project;
 import com.liferay.projects.dashboard.project.service.ProjectLocalService;
 import com.liferay.projects.dashboard.web.internal.constants.ProjectsDashboardPortletKeys;
 
@@ -31,6 +32,7 @@ import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
 
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Joan H. Kim
